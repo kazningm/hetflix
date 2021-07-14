@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Route } from "react-router";
 
 // const A = React.lazy(() => import("./A"));
@@ -16,6 +17,14 @@ const MainContent = () => {
             <Route path="/login" render={ () => {} }>LOGIN</Route>
         </main>
     );
+}
+
+Route.propTypes = {
+    path: PropTypes.string
+}
+
+Route.defaultProps = {
+    path: "/home"
 }
 
 export default MainContent;
