@@ -1,0 +1,33 @@
+.sortLabel {
+    color: #555;
+    padding-right: 10px;
+}
+
+.sortSelect {
+    font-family: sans-serif;
+    letter-spacing: 1.2pt;
+    outline: none;
+    border: none;
+    height: 40px;
+    border-radius: 6px;
+    border-width: 0;
+    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.3);
+    padding: 0px 10px;
+    color: white;
+    background-color: rgba(0,0,0,0.3);
+    transition-property: background-color;
+    transition-duration: 300ms; 
+}
+
+.sortSelect:hover {
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.6);
+}
+
+.sortSelect:focus {
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.6);
+}
+
+.sortSelect > option {
+}

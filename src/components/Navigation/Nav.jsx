@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import style from "./Nav.module.css";
+import SortFilms from "./SortFilms/SortFilms";
 
 const Nav = () => {
     return (
@@ -20,8 +21,7 @@ const Nav = () => {
                 </li>
                 <li></li>
                 <li>
-                    <label htmlFor="sort">SORT BY</label>
-                    <select name="sort" id=""></select>
+                    <SortFilms />
                 </li>
             </ul>
         </nav>
