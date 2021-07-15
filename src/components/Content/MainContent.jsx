@@ -1,13 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Route } from "react-router";
+import Carousel from "./Carousel";
 
 // const A = React.lazy(() => import("./A"));
 
 const MainContent = () => {
     return (
         <main>
-            <Route path="/home" render={ () => {} }>HOME</Route>
+            <Route path="/home" render={ () => <Carousel /> } />
             <Route path="/serials" render={ () => {} }>SERIALS</Route>
             <Route path="/films" render={ () => {} }>FILMS</Route>
             <Route path="/new" render={ () => {} }>NEW AND POPULAR</Route>

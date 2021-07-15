@@ -8,34 +8,23 @@ const Nav = () => {
         <nav>
             <ul className={style.headNav}>
                 <li>
-                    <NavLink to="/home">
-                        <img className={style.logo} src={logo} alt="" />
-                    </NavLink>
+                    <NavLink to="/home">ALL</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/home">Главная</NavLink>
+                    <NavLink to="/serials">DOCUMENTARY</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/serials">Сериалы</NavLink>
+                    <NavLink to="/films">HORROR</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/films">Фильмы</NavLink>
-                </li>
-                <li>
-                    <NavLink to="/new">Новые и популярные</NavLink>
-                </li>
-                <li>
-                    <NavLink to="/my-list">Мой список</NavLink>
+                    <NavLink to="/new">CRIME</NavLink>
                 </li>
                 <li></li>
                 <li>
-                    <NavLink to="/login">Логин</NavLink>
+                    <NavLink to="/login">SORT BY</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/mode">Режим</NavLink>
-                </li>
-                <li>
-                    <NavLink to="/search">Поиск</NavLink>
+                    <NavLink to="/mode">RELEASE DATE</NavLink>
                 </li>
             </ul>
         </nav>

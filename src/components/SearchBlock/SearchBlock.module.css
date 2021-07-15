@@ -1,0 +1,105 @@
+.rootWrapper {
+    background-image: url("./../../films.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #aaa;
+    color: white;
+    padding: 20px;
+}
+
+.root {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.addMovieDiv {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.logo {
+    height: 40px;
+}
+
+.logo:hover {
+    cursor: pointer;
+}
+
+.addMovieButton {
+    background-color: rgba(0,0,0,0.3);
+    padding: 10px 30px;
+    /* opacity: 0.3; */
+    color: #f65261;
+    border-radius: 6px;
+    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.3);
+    transition-property: background-color;
+    transition-duration: 300ms;
+}
+
+.addMovieButton:hover {
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.6);
+}
+
+.searchDiv {
+    width: 95%;
+    margin: 50px auto;
+}
+
+.inputDiv {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.customInput  {
+    font-family: sans-serif;
+    padding-left: 20px;
+    flex-grow: 8;
+    font-size: 180%;
+    border-radius: 6px;
+    border-width: 0;
+    color: white;
+    background-color: rgba(0,0,0,0.6);
+    transition-property: background-color;
+    transition-duration: 300ms;    
+}
+
+.customInput:focus {
+    border-width: 0;
+    outline: 0;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.customInput:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+.searchMovieButton {
+    margin-left: 10px;
+    text-align: center;
+    padding: 15px 30px;
+    border-radius: 6px;
+    color: white;
+    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.3);
+    background-color: rgba(246, 82, 97,0.8);
+    transition-property: background-color;
+    transition-duration: 300ms;
+}
+
+.searchMovieButton:hover {
+    background-color: rgba(246, 82, 97, 1);
+}
+
+
+.inputDiv > a {
+    flex-grow: 2;
+}
+
+
+.text {
+    font-size: 200%;
+    letter-spacing: 2pt;
+    margin-bottom: 10px;
+}
