@@ -1,16 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Route } from "react-router";
+import FilmsGrid from "./FilmsGrid";
 
 // const A = React.lazy(() => import("./A"));
 
 const MainContent = () => {
     return (
         <main>
-            <Route path="/all" render={ () => {} } > ALL</Route>
-            <Route path="/documentary" render={ () => {} }> DOCUMENTARY </Route>
-            <Route path="/horror" render={ () => {} }> HORROR </Route>
-            <Route path="/crime" render={ () => {} }> CRIME </Route>
+            <Route path="/all" render={ () => <FilmsGrid /> } />
+            <Route path="/documentary" render={ () => <FilmsGrid /> } />
+            <Route path="/horror" render={ () => <FilmsGrid /> } />
+            <Route path="/crime" render={ () => <FilmsGrid /> } />
         </main>
     );
 }

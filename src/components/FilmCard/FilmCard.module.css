@@ -1,7 +1,7 @@
 .rootCard {
     position: relative;
     width: 300px;
-    margin-bottom: 20px;
+    margin: 0 auto;
 }
 
 .Card {
