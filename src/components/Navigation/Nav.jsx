@@ -19,8 +19,8 @@ const Nav = () => {
                 <li>
                     <NavLink to="/crime">CRIME</NavLink>
                 </li>
-                <li></li>
-                <li>
+                <li style={{ flexGrow: 10 }}></li>
+                <li style={{ paddingRight: 0 }}>
                     <SortFilms />
                 </li>
             </ul>

@@ -13,28 +13,36 @@ nav {
 
 .headNav {
     display: flex;
-    justify-content: left;
+    justify-content: space-between;
     align-items: stretch;
     height: 100%;
     padding: 0;
     margin: 0;
-    border-bottom: 1px solid white;
     list-style-type: none
 }
 
 .headNav li {    
     /* border: 1px solid white; */
-    padding: 0 20px;
     line-height: 60px;
+    text-align: center;
+    border-bottom: 2px solid white;
     white-space: nowrap;
     overflow: hidden;
     color: white;
+    flex-grow: 1;
+    transition-property: border-bottom;
+    transition-duration: 200ms;
 }
+
+/* .headNav li:hover {    
+    border-bottom: 2px solid #f65261;
+} */
 
 .headNav li a {
     color: white;
+    display: block;
+    height: 100%;
     text-decoration: none;
-    /* border: 1px solid white; */
     transition-property: color;
     transition-duration: 200ms;
 }

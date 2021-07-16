@@ -12,7 +12,7 @@ const SearchBlock = () => {
                         <img className={ style.logo } src={ logo } alt="" />
                     </NavLink>
                     <NavLink to="/add">
-                        <div className={ style.addMovieButton }>ADD MOVIE</div>
+                        <div className={ style.addMovieButton }>+ ADD MOVIE</div>
                     </NavLink>
                 </div>   
                 <div className={ style.searchDiv }>
