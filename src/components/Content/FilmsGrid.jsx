@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
 import style from "./FilmsGrid.module.css";
 import FilmCard from "../FilmCard/FilmCard";
 import { connect } from "react-redux";
 import { changeFilmsList } from "./../../reducers/films_reducer";
 import { compose } from "redux";
 import { withRouter } from "react-router-dom";
-import { getFilmsByGenre } from "./../../FilmsAPI/FilmsAPI"
-import _ from "lodash";
+import { withReqToAPI } from "./HOCS/withReqToAPI";
 
 // const FilmGrid = (props) => {
 //     return (
@@ -62,18 +60,19 @@ const FilmGrid = (props) => {
     );
 }
 
-const FilmGridReqToAPI = (props) => {
-    const genre = _.capitalize(_.trim(props.match.path, "/"));    
-    const filmsList = useState(props.filmsList)[0]
+// const FilmGridReqToAPI = (props) => {
+//     const genre = _.capitalize(_.trim(props.match.path, "/"));    
+//     const filmsList = useState(props.filmsList)[0]
 
-    useEffect(() => {
-        getFilmsByGenre(genre, props.changeFilmsList)        
-    }, [filmsList])
+//     useEffect(() => {
+//         getFilmsByGenre(genre, props.changeFilmsList)        
+//     }, [filmsList])
     
-    return (
-        <FilmGrid  filmsList={ props.filmsList } />
-    );
-}
+//     return (
+//         <FilmGrid  filmsList={ props.filmsList } />
+//     );
+// }
+
 
 let mapStateToProps = (state) => ({
     filmsList: state.films.filmsList
@@ -81,7 +80,8 @@ let mapStateToProps = (state) => ({
 
 const FilmGridContainer = compose(
     connect(mapStateToProps, { changeFilmsList }),
-    withRouter
-)(FilmGridReqToAPI)
+    withRouter,
+    withReqToAPI
+)(FilmGrid)
 
 export default FilmGridContainer;
