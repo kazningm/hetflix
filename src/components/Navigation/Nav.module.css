@@ -34,10 +34,6 @@ nav {
     transition-duration: 200ms;
 }
 
-/* .headNav li:hover {    
-    border-bottom: 2px solid #f65261;
-} */
-
 .headNav li a {
     color: white;
     display: block;
@@ -54,5 +50,9 @@ nav {
 .headNav li a:hover {
     cursor: pointer;
     color: #aaa;
+}
+
+.active {
+    color: #f65261;
 }
 
