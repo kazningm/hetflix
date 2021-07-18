@@ -24,10 +24,10 @@ const Nav = (props) => {
                     <NavLink to="/action" onClick={ changeFilmsList } >ACTION</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/drama" >DRAMA</NavLink>
+                    <NavLink to="/drama" onClick={ changeFilmsList } >DRAMA</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/fantasy" >FANTASY</NavLink>
+                    <NavLink to="/crime" onClick={ changeFilmsList } >CRIME</NavLink>
                 </li>
                 <li style={{ flexGrow: 10 }}></li>
                 <li style={{ paddingRight: 0 }}>
