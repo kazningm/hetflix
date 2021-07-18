@@ -1,20 +1,24 @@
 import React from "react";
 import style from "./FilmCard.module.css";
 
-const FilmCard = () => {
+const FilmCard = (props) => {
+    let filmInfo = props.filmInfo;
+    let src = filmInfo.poster_path;
+    let name = filmInfo.title;
+    let date = filmInfo.release_date;
+    let genres = filmInfo.genres.join(", ");
+
     return (
         <div className={ style.rootCard }>
             <div className={ style.Card }>
-                <img className={ style.filmImg } src="https://avatars.mds.yandex.net/get-kinopoisk-image/1900788/e448658f-3dca-4acc-8e7f-796fa50bf24a/800x800" alt="" />
+                <img className={ style.filmImg } src={ src } alt="" />
                 <div className={ style.threeDots }>&#8942;</div>
             </div>
             <div className={ style.descDiv }>
-                <div className={ style.filmName }>Focus</div>
-                <div className={ style.filmYear } >2020</div>
+                <div className={ style.filmName }>{ name }</div>
+                <div className={ style.filmYear }>{ date }</div>
             </div>
-            <div className={ style.filmGenre }>
-                Comedy, Drama
-            </div>
+            <div className={ style.filmGenre }>{ genres }</div>
             
         </div>
     );

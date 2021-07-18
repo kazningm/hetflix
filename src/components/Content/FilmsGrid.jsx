@@ -1,13 +1,87 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "./FilmsGrid.module.css";
 import FilmCard from "../FilmCard/FilmCard";
+import { connect } from "react-redux";
+import { changeFilmsList } from "./../../reducers/films_reducer";
+import { compose } from "redux";
+import { withRouter } from "react-router-dom";
+import { getFilmsByGenre } from "./../../FilmsAPI/FilmsAPI"
+import _ from "lodash";
 
-const FilmGrid = () => {
+// const FilmGrid = (props) => {
+//     return (
+//         <div className={ style.filmGrid }>
+//             { props.data.map(film => <FilmCard filmInfo={ film } key={ film.id } />) }
+//         </div>
+//     );
+// }
+
+// const FilmGridContainer = () => {
+//     const [data, changeData] = useState([])
+//     useEffect(() => {
+//         if (data.length === 0) {
+//             axios.get("http://localhost:4000/movies").then(data => {
+//                 changeData(data.data.data);
+//             })
+//         }
+//     })
+
+//     return (
+//         <FilmGrid data={ data }/>
+//     )
+// }
+///////////////////////////////////////////////////////////////////////////////////////////
+// const FilmGrid = (props) => {
+//     const data = useState(props.data)[0];
+
+//     useEffect(() => {
+//         axios.get("http://localhost:4000/movies").then(data => {
+//             props.changeFilmsList(data.data.data);
+//         })
+//     }, [data])
+
+//     return (
+//         <div className={ style.filmGrid }>
+//             { props.data.map(film => <FilmCard filmInfo={ film } key={ film.id } />) }
+//         </div>
+//     );
+// }
+
+// let mapStateToProps = (state) => ({
+//     data: state.films.filmsList
+// })
+
+// const FilmGridContainer = connect(mapStateToProps, { changeFilmsList })(FilmGrid)
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+const FilmGrid = (props) => {
     return (
         <div className={ style.filmGrid }>
-            { [1,2,3,4,5].map((a) => <FilmCard key={ a } />) }
+            { props.filmsList.map(film => <FilmCard filmInfo={ film } key={ film.id } />) }
         </div>
     );
 }
 
-export default FilmGrid;
+const FilmGridReqToAPI = (props) => {
+    const genre = _.capitalize(_.trim(props.match.path, "/"));    
+    const filmsList = useState(props.filmsList)[0]
+
+    useEffect(() => {
+        getFilmsByGenre(genre, props.changeFilmsList)        
+    }, [filmsList])
+    
+    return (
+        <FilmGrid  filmsList={ props.filmsList } />
+    );
+}
+
+let mapStateToProps = (state) => ({
+    filmsList: state.films.filmsList
+})
+
+const FilmGridContainer = compose(
+    connect(mapStateToProps, { changeFilmsList }),
+    withRouter
+)(FilmGridReqToAPI)
+
+export default FilmGridContainer;
