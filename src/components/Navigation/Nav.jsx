@@ -15,19 +15,19 @@ const Nav = (props) => {
         <nav>
             <ul className={style.headNav}>
                 <li>
-                    <NavLink to="/all" onClick={ changeFilmsList } >ALL</NavLink>
+                    <NavLink to="/all" activeClassName={ style.active } onClick={ changeFilmsList }>ALL</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/family" onClick={ changeFilmsList } >FAMILY</NavLink>
+                    <NavLink to="/family" activeClassName={ style.active } onClick={ changeFilmsList } >FAMILY</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/action" onClick={ changeFilmsList } >ACTION</NavLink>
+                    <NavLink to="/action" activeClassName={ style.active } onClick={ changeFilmsList } >ACTION</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/drama" onClick={ changeFilmsList } >DRAMA</NavLink>
+                    <NavLink to="/drama" activeClassName={ style.active } onClick={ changeFilmsList } >DRAMA</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/crime" onClick={ changeFilmsList } >CRIME</NavLink>
+                    <NavLink to="/crime" activeClassName={ style.active } onClick={ changeFilmsList } >CRIME</NavLink>
                 </li>
                 <li style={{ flexGrow: 10 }}></li>
                 <li style={{ paddingRight: 0 }}>

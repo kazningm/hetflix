@@ -53,6 +53,6 @@ nav {
 }
 
 .active {
-    color: #f65261;
+    color: #f65261 !important;
 }
 
