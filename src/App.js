@@ -17,10 +17,10 @@ function App() {
           <SearchBlock />
           <Nav />
           <MainContent />
-          <Error />
-          <footer>
+          {/* <Error /> */}
+          {/* <footer>
             футер
-          </footer>
+          </footer> */}
         </BrowserRouter>
       </Provider>
     </>

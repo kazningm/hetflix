@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import NotFound from "./../NotFound";
 import { getFilmsByGenre } from "./../../../FilmsAPI/FilmsAPI";
 import _ from "lodash";
 
@@ -13,7 +14,7 @@ export const withReqToAPI = (Component) => {
         }, [filmsList])
 
         return (
-            <Component {...props}/>
+            props.filmsList.length !== 0 ? <Component {...props} /> : <NotFound /> 
         )
     }
 
