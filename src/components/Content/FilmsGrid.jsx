@@ -1,10 +1,11 @@
 import style from "./FilmsGrid.module.css";
 import FilmCard from "../FilmCard/FilmCard";
 import { connect } from "react-redux";
-import { changeFilmsList } from "./../../reducers/films_reducer";
+import { changeFilmsList, showLoader, hideLoader } from "./../../reducers/films_reducer";
 import { compose } from "redux";
 import { withRouter } from "react-router-dom";
 import { withReqToAPI } from "./HOCS/withReqToAPI";
+import NotFound from "./NotFound";
 
 // const FilmGrid = (props) => {
 //     return (
@@ -53,11 +54,14 @@ import { withReqToAPI } from "./HOCS/withReqToAPI";
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 const FilmGrid = (props) => {
-    return (
-        <div className={ style.filmGrid }>
-            { props.filmsList.map(film => <FilmCard filmInfo={ film } key={ film.id } />) }
-        </div>
-    );
+    if (props.filmsList.length !== 0) {
+        return (
+            <div className={ style.filmGrid }>
+                { props.filmsList.map(film => <FilmCard filmInfo={ film } key={ film.id }/>) }
+            </div>
+        )
+    }
+    return <NotFound />
 }
 
 // const FilmGridReqToAPI = (props) => {
@@ -79,7 +83,7 @@ let mapStateToProps = (state) => ({
 })
 
 const FilmGridContainer = compose(
-    connect(mapStateToProps, { changeFilmsList }),
+    connect(mapStateToProps, { changeFilmsList, showLoader, hideLoader }),
     withRouter,
     withReqToAPI
 )(FilmGrid)

@@ -10,11 +10,11 @@ export const withReqToAPI = (Component) => {
         const filmsList = useState(props.filmsList)[0]
 
         useEffect(() => {
-            getFilmsByGenre(genre, props.changeFilmsList)        
+            getFilmsByGenre(genre, props.changeFilmsList)       
         }, [filmsList])
 
         return (
-            props.filmsList.length !== 0 ? <Component {...props} /> : <NotFound /> 
+            <Component {...props} />
         )
     }
 
