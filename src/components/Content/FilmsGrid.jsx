@@ -79,10 +79,8 @@ const FilmGrid = (props) => {
 //     );
 // }
 
-
 let mapStateToProps = (state) => ({
     filmsList: state.films.filmsList,
-    sort: state.films.sortBy,
     isFilmsShow: state.films.isFilmsShow
 })
 
@@ -92,8 +90,6 @@ let mapDispatchToProps = {
     showLoader, 
     hideLoader 
 }
-
-
 
 const FilmGridContainer = compose(
     connect(mapStateToProps, mapDispatchToProps),

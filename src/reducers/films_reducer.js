@@ -22,6 +22,15 @@ const init_state = {
     filmsList: []
 }
 
+let sortBy = (arr, sort) => {
+    if (sort === RELEASE_DATA) {
+        return _.sortBy(arr, (film) => film.release_date).reverse()
+    } else if (sort === RATING) {
+        return _.sortBy(arr, (film) => film.vote_average).reverse()
+    } 
+    return arr;
+}
+
 const films_reducer = (state=init_state, action) => {
     let stateCopy = _.cloneDeep(state);
 
@@ -36,13 +45,16 @@ const films_reducer = (state=init_state, action) => {
     } else if (action.type === HIDE_FILMS) {
         stateCopy.isFilmsShow = false;
     } else if (action.type === CHANGE_SORT) {
-        stateCopy.sortBy = action.sort
+        stateCopy.sortBy = action.sort;
+        stateCopy.filmsList = sortBy(stateCopy.filmsList, action.sort)
     }
 
     return stateCopy;
 }
 
 export default films_reducer;
+
+// ACTIONS //////////////////////////////////////////////////
 
 export let showLoader = () => ({
     type: SHOW_LOADER
@@ -65,22 +77,13 @@ export let changeFilmsList = (data) => ({
     data
 })
 
-let sortBy = (arr, sort) => {
-    if (sort === RELEASE_DATA) {
-        return _.sortBy(arr, (film) => film.release_date).reverse()
-    } else if (sort === RATING) {
-        return _.sortBy(arr, (film) => film.vote_average).reverse()
-    } 
-    return arr;
-}
-
-export let getFilmsByGenre = (genre, sort) => {
+export let getFilmsByGenre = (genre) => {
     return (dispatch) => {
         dispatch(hideFilms());
         dispatch(showLoader());
         axios.get("http://localhost:4000/movies")
             .then(data => {
-                let films = sortBy(data.data.data, sort);
+                let films = data.data.data;
                 if (genre !== "All") {
                     dispatch(changeFilmsList(films.filter(film => _.includes(film.genres, genre))));
                 }
@@ -93,6 +96,7 @@ export let getFilmsByGenre = (genre, sort) => {
             })
             .catch(err => {
                 dispatch(hideLoader());
+                dispatch(hideFilms());
                 // обернуть FilmsGrid в ErrorBoundary
                 console.error(err);
                 throw err;

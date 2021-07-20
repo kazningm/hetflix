@@ -7,10 +7,10 @@ export const withReqToAPI = (Component) => {
     const NewComponent = (props) => {
         const genre = _.capitalize(_.trim(props.match.path, "/"));    
         const filmsList = useState(props.filmsList)[0]
-        const sort = props.sort;
+        
         useEffect(() => {
-            props.getFilmsByGenre(genre, sort)       
-        }, [filmsList, sort])
+            props.getFilmsByGenre(genre)       
+        }, [filmsList])
 
         return (
             <Component {...props} />
