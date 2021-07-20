@@ -1,11 +1,12 @@
 import style from "./FilmsGrid.module.css";
 import FilmCard from "../FilmCard/FilmCard";
 import { connect } from "react-redux";
-import { changeFilmsList, getFilmsByGenre, showLoader, hideLoader } from "./../../reducers/films_reducer";
+import { changeFilmsList, getFilmsByGenre } from "./../../reducers/films_reducer";
 import { compose } from "redux";
 import { withRouter } from "react-router-dom";
 import { withReqToAPI } from "./HOCS/withReqToAPI";
 import NotFound from "./NotFound";
+import Error from "./../Error/Error";
 
 // const FilmGrid = (props) => {
 //     return (
@@ -54,6 +55,9 @@ import NotFound from "./NotFound";
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 const FilmGrid = (props) => {
+    if (props.isErrorShow) {
+        return <Error />
+    }
     if (props.isFilmsShow) {
         if (props.filmsList.length === 0) return <NotFound />
         else return (
@@ -81,14 +85,13 @@ const FilmGrid = (props) => {
 
 let mapStateToProps = (state) => ({
     filmsList: state.films.filmsList,
-    isFilmsShow: state.films.isFilmsShow
+    isFilmsShow: state.films.isFilmsShow,
+    isErrorShow: state.films.isErrorShow
 })
 
 let mapDispatchToProps = { 
     changeFilmsList, 
-    getFilmsByGenre,
-    showLoader, 
-    hideLoader 
+    getFilmsByGenre
 }
 
 const FilmGridContainer = compose(

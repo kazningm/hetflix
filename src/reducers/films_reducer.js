@@ -10,6 +10,9 @@ const HIDE_LOADER = "HIDE_LOADER";
 const SHOW_FILMS = "SHOW_FILMS";
 const HIDE_FILMS = "HIDE_FILMS"; 
 
+const SHOW_ERROR = "SHOW_ERROR";
+const HIDE_ERROR = "HIDE_ERROR"; 
+
 const CHANGE_SORT = "CHANGE_SORT";
 const NOT_SORTED = "NOT_SORTED";
 const RELEASE_DATA = "RELEASE_DATA";
@@ -21,6 +24,7 @@ const init_state = {
     placeholder: "What do you want to watch?",
     isLoaderShow: false,
     isFilmsShow: true,
+    isErrorShow: false,
     sortList: [NOT_SORTED, RELEASE_DATA, RATING],
     sortBy: NOT_SORTED,
     filmsList: []
@@ -48,6 +52,10 @@ const films_reducer = (state=init_state, action) => {
         stateCopy.isFilmsShow = true;
     } else if (action.type === HIDE_FILMS) {
         stateCopy.isFilmsShow = false;
+    } else if (action.type === SHOW_ERROR) {
+        stateCopy.isErrorShow = true;
+    } else if (action.type === HIDE_ERROR) {
+        stateCopy.isErrorShow = false;
     } else if (action.type === CHANGE_SORT) {
         stateCopy.sortBy = action.sort;
         stateCopy.filmsList = sortBy(stateCopy.filmsList, action.sort)
@@ -61,6 +69,14 @@ const films_reducer = (state=init_state, action) => {
 export default films_reducer;
 
 // ACTIONS //////////////////////////////////////////////////
+
+export let showError = () => ({
+    type: SHOW_ERROR
+})
+
+export let hideError = () => ({
+    type: HIDE_ERROR
+})
 
 export let showLoader = () => ({
     type: SHOW_LOADER
@@ -85,6 +101,7 @@ export let changeFilmsList = (data) => ({
 
 export let getFilmsByGenre = (genre) => {
     return (dispatch) => {
+        dispatch(hideError());
         dispatch(hideFilms());
         dispatch(showLoader());
         axios.get("http://localhost:4000/movies")
@@ -97,12 +114,14 @@ export let getFilmsByGenre = (genre) => {
                     dispatch(changeFilmsList(films));
             })
             .then(() => { 
-                dispatch(showFilms());
+                dispatch(hideError());
                 dispatch(hideLoader()); 
+                dispatch(showFilms());
             })
             .catch(err => {
                 dispatch(hideLoader());
                 dispatch(hideFilms());
+                dispatch(showError())
                 // обернуть FilmsGrid в ErrorBoundary
                 console.error(err);
                 throw err;
