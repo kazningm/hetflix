@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getFilmsByGenre } from "./../../../FilmsAPI/FilmsAPI";
+// import { getFilmsByGenre } from "./../../../FilmsAPI/FilmsAPI";
 import _ from "lodash";
 
 
@@ -9,7 +9,7 @@ export const withReqToAPI = (Component) => {
         const filmsList = useState(props.filmsList)[0]
 
         useEffect(() => {
-            getFilmsByGenre(genre, props.changeFilmsList)       
+            props.getFilmsByGenre(genre)       
         }, [filmsList])
 
         return (

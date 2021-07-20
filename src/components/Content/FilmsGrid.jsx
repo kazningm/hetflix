@@ -1,7 +1,7 @@
 import style from "./FilmsGrid.module.css";
 import FilmCard from "../FilmCard/FilmCard";
 import { connect } from "react-redux";
-import { changeFilmsList, showLoader, hideLoader } from "./../../reducers/films_reducer";
+import { changeFilmsList, getFilmsByGenre, showLoader, hideLoader } from "./../../reducers/films_reducer";
 import { compose } from "redux";
 import { withRouter } from "react-router-dom";
 import { withReqToAPI } from "./HOCS/withReqToAPI";
@@ -54,6 +54,7 @@ import NotFound from "./NotFound";
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 const FilmGrid = (props) => {
+    // debugger
     if (props.filmsList.length !== 0) {
         return (
             <div className={ style.filmGrid }>
@@ -82,8 +83,9 @@ let mapStateToProps = (state) => ({
     filmsList: state.films.filmsList
 })
 
+
 const FilmGridContainer = compose(
-    connect(mapStateToProps, { changeFilmsList, showLoader, hideLoader }),
+    connect(mapStateToProps, { changeFilmsList, getFilmsByGenre, showLoader, hideLoader }),
     withRouter,
     withReqToAPI
 )(FilmGrid)

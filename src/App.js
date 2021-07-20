@@ -4,7 +4,6 @@ import { BrowserRouter } from "react-router-dom";
 // import { Suspense } from "react";
 import MainContent from "./components/Content/MainContent";
 import SearchBlock from "./components/SearchBlock/SearchBlock";
-import Error from "./components/Error/Error";
 import Loader from "./components/Content/Loader";
 import { Provider } from "react-redux";
 import React from "react";

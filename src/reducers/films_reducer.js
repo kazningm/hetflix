@@ -1,4 +1,5 @@
 import _ from "lodash";
+import axios from "axios";
 
 const CHANGE_FILMS_LIST = "CHANGE_FILMS_LIST";
 const SHOW_LOADER = "SHOW_LOADER";
@@ -37,4 +38,24 @@ export let showLoader = () => ({
 export let hideLoader = () => ({
     type: HIDE_LOADER
 })
+
+export let getFilmsByGenre = (genre) => {
+    return (dispatch) => {
+        dispatch(showLoader());
+        axios.get("http://localhost:4000/movies")
+            .then(data => {
+                let films = data.data.data;
+                if (genre !== "All") {
+                    dispatch(changeFilmsList(films.filter(film => _.includes(film.genres, genre))));
+                }
+                else 
+                    dispatch(changeFilmsList(films));
+            })
+            .then(() => { dispatch(hideLoader()) })
+            .catch(err => {
+                console.error(err);
+                throw err;
+            })        
+    }
+}
 
