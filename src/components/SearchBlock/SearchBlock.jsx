@@ -3,7 +3,8 @@ import style from "./SearchBlock.module.css";
 import logo from "./../../logo.png";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-import { changeSearchValue } from "./../../reducers/search_reducer";
+import { changeSearchValue } from "./../../reducers/films_reducer";
+import _ from "lodash";
 
 const SearchBlock = (props) => {
     let changeSearchValue = (event) => {
@@ -44,8 +45,8 @@ const SearchBlock = (props) => {
 }
 
 let mapStateToProps = (state) => ({ 
-    search_value: state.searchBlock.search_value,
-    placeholder: state.searchBlock.placeholder
+    search_value: state.films.search_value,
+    placeholder: state.films.placeholder
 })
 
 const SearchBlockContainer = connect(mapStateToProps, { changeSearchValue })(SearchBlock);

@@ -1,6 +1,8 @@
 import _ from "lodash";
 import axios from "axios";
 
+const CHANGE_SEARCH_VALUE = "CHANGE_SEARCH_VALUE";
+
 const CHANGE_FILMS_LIST = "CHANGE_FILMS_LIST";
 const SHOW_LOADER = "SHOW_LOADER";
 const HIDE_LOADER = "HIDE_LOADER";  
@@ -15,6 +17,8 @@ const RATING = "RATING";
 
 
 const init_state = {
+    search_value: "",
+    placeholder: "What do you want to watch?",
     isLoaderShow: false,
     isFilmsShow: true,
     sortList: [NOT_SORTED, RELEASE_DATA, RATING],
@@ -47,6 +51,8 @@ const films_reducer = (state=init_state, action) => {
     } else if (action.type === CHANGE_SORT) {
         stateCopy.sortBy = action.sort;
         stateCopy.filmsList = sortBy(stateCopy.filmsList, action.sort)
+    } else if (action.type === CHANGE_SEARCH_VALUE) {
+        stateCopy.search_value = action.value;
     }
 
     return stateCopy;
@@ -107,5 +113,10 @@ export let getFilmsByGenre = (genre) => {
 export let changeSort = (sort) => ({ 
     type: CHANGE_SORT, 
     sort 
+})
+
+export const changeSearchValue = (value) => ({
+    type: CHANGE_SEARCH_VALUE,
+    value
 })
 
