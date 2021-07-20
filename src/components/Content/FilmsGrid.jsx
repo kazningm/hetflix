@@ -54,7 +54,6 @@ import NotFound from "./NotFound";
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 const FilmGrid = (props) => {
-    // debugger
     if (props.filmsList.length !== 0) {
         return (
             <div className={ style.filmGrid }>
@@ -80,12 +79,21 @@ const FilmGrid = (props) => {
 
 
 let mapStateToProps = (state) => ({
-    filmsList: state.films.filmsList
+    filmsList: state.films.filmsList,
+    sort: state.films.sortBy
 })
+
+let mapDispatchToProps = { 
+    changeFilmsList, 
+    getFilmsByGenre,
+    showLoader, 
+    hideLoader 
+}
+
 
 
 const FilmGridContainer = compose(
-    connect(mapStateToProps, { changeFilmsList, getFilmsByGenre, showLoader, hideLoader }),
+    connect(mapStateToProps, mapDispatchToProps),
     withRouter,
     withReqToAPI
 )(FilmGrid)
