@@ -5,6 +5,9 @@ const CHANGE_FILMS_LIST = "CHANGE_FILMS_LIST";
 const SHOW_LOADER = "SHOW_LOADER";
 const HIDE_LOADER = "HIDE_LOADER";  
 
+const SHOW_FILMS = "SHOW_FILMS";
+const HIDE_FILMS = "HIDE_FILMS"; 
+
 const CHANGE_SORT = "CHANGE_SORT";
 const NOT_SORTED = "NOT_SORTED";
 const RELEASE_DATA = "RELEASE_DATA";
@@ -13,6 +16,7 @@ const RATING = "RATING";
 
 const init_state = {
     isLoaderShow: false,
+    isFilmsShow: true,
     sortList: [NOT_SORTED, RELEASE_DATA, RATING],
     sortBy: NOT_SORTED,
     filmsList: []
@@ -27,6 +31,10 @@ const films_reducer = (state=init_state, action) => {
         stateCopy.isLoaderShow = true;
     } else if (action.type === HIDE_LOADER) {
         stateCopy.isLoaderShow = false;
+    } else if (action.type === SHOW_FILMS) {
+        stateCopy.isFilmsShow = true;
+    } else if (action.type === HIDE_FILMS) {
+        stateCopy.isFilmsShow = false;
     } else if (action.type === CHANGE_SORT) {
         stateCopy.sortBy = action.sort
     }
@@ -42,6 +50,14 @@ export let showLoader = () => ({
 
 export let hideLoader = () => ({
     type: HIDE_LOADER
+})
+
+export let showFilms = () => ({
+    type: SHOW_FILMS
+})
+
+export let hideFilms = () => ({
+    type: HIDE_FILMS
 })
 
 export let changeFilmsList = (data) => ({
@@ -60,6 +76,7 @@ let sortBy = (arr, sort) => {
 
 export let getFilmsByGenre = (genre, sort) => {
     return (dispatch) => {
+        dispatch(hideFilms());
         dispatch(showLoader());
         axios.get("http://localhost:4000/movies")
             .then(data => {
@@ -70,8 +87,13 @@ export let getFilmsByGenre = (genre, sort) => {
                 else 
                     dispatch(changeFilmsList(films));
             })
-            .then(() => { dispatch(hideLoader()) })
+            .then(() => { 
+                dispatch(showFilms());
+                dispatch(hideLoader()); 
+            })
             .catch(err => {
+                dispatch(hideLoader());
+                // обернуть FilmsGrid в ErrorBoundary
                 console.error(err);
                 throw err;
             })        

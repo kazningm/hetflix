@@ -54,14 +54,16 @@ import NotFound from "./NotFound";
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 const FilmGrid = (props) => {
-    if (props.filmsList.length !== 0) {
-        return (
+    if (props.isFilmsShow) {
+        if (props.filmsList.length === 0) return <NotFound />
+        else return (
             <div className={ style.filmGrid }>
                 { props.filmsList.map(film => <FilmCard filmInfo={ film } key={ film.id }/>) }
             </div>
         )
     }
-    return <NotFound />
+        
+    return null
 }
 
 // const FilmGridReqToAPI = (props) => {
@@ -80,7 +82,8 @@ const FilmGrid = (props) => {
 
 let mapStateToProps = (state) => ({
     filmsList: state.films.filmsList,
-    sort: state.films.sortBy
+    sort: state.films.sortBy,
+    isFilmsShow: state.films.isFilmsShow
 })
 
 let mapDispatchToProps = { 
