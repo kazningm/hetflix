@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import NotFound from "./../NotFound";
 import { getFilmsByGenre } from "./../../../FilmsAPI/FilmsAPI";
 import _ from "lodash";
 
