@@ -1,60 +1,15 @@
 import style from "./FilmsGrid.module.css";
 import FilmCard from "../FilmCard/FilmCard";
 import { connect } from "react-redux";
-import { changeFilmsList, getFilmsByGenre } from "./../../reducers/films_reducer";
+import { changeFilmsList, getFilms } from "./../../reducers/films_reducer";
 import { compose } from "redux";
 import { withRouter } from "react-router-dom";
-import { withReqToAPI } from "./HOCS/withReqToAPI";
+import { withReqToAPI } from "./../HOCS/withReqToAPI";
 import NotFound from "./NotFound";
 import Error from "./../Error/Error";
 
-// const FilmGrid = (props) => {
-//     return (
-//         <div className={ style.filmGrid }>
-//             { props.data.map(film => <FilmCard filmInfo={ film } key={ film.id } />) }
-//         </div>
-//     );
-// }
-
-// const FilmGridContainer = () => {
-//     const [data, changeData] = useState([])
-//     useEffect(() => {
-//         if (data.length === 0) {
-//             axios.get("http://localhost:4000/movies").then(data => {
-//                 changeData(data.data.data);
-//             })
-//         }
-//     })
-
-//     return (
-//         <FilmGrid data={ data }/>
-//     )
-// }
-///////////////////////////////////////////////////////////////////////////////////////////
-// const FilmGrid = (props) => {
-//     const data = useState(props.data)[0];
-
-//     useEffect(() => {
-//         axios.get("http://localhost:4000/movies").then(data => {
-//             props.changeFilmsList(data.data.data);
-//         })
-//     }, [data])
-
-//     return (
-//         <div className={ style.filmGrid }>
-//             { props.data.map(film => <FilmCard filmInfo={ film } key={ film.id } />) }
-//         </div>
-//     );
-// }
-
-// let mapStateToProps = (state) => ({
-//     data: state.films.filmsList
-// })
-
-// const FilmGridContainer = connect(mapStateToProps, { changeFilmsList })(FilmGrid)
-/////////////////////////////////////////////////////////////////////////////////////////////
-
 const FilmGrid = (props) => {
+    // console.log(props)
     if (props.isErrorShow) {
         return <Error />
     }
@@ -85,13 +40,14 @@ const FilmGrid = (props) => {
 
 let mapStateToProps = (state) => ({
     filmsList: state.films.filmsList,
+    sortBy: state.films.sortBy,
     isFilmsShow: state.films.isFilmsShow,
     isErrorShow: state.films.isErrorShow
 })
 
 let mapDispatchToProps = { 
     changeFilmsList, 
-    getFilmsByGenre
+    getFilms
 }
 
 const FilmGridContainer = compose(

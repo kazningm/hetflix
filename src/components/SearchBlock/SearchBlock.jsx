@@ -1,18 +1,18 @@
 import React from "react";
 import style from "./SearchBlock.module.css";
 import logo from "./../../logo.png";
-import { NavLink } from "react-router-dom";
+import { NavLink} from "react-router-dom";
 import { connect } from "react-redux";
-import { changeSearchValue } from "./../../reducers/films_reducer";
-import _ from "lodash";
+import { compose } from "redux";
+import { changeSearchValue, changeFilmsList, getFilms } from "./../../reducers/films_reducer";
 
-const SearchBlock = (props) => {
+const SearchBlock = (props) => {  
     let changeSearchValue = (event) => {
         props.changeSearchValue(event.target.value);
     }
 
     let search = () => {
-        console.log("search button");
+        // props.getFilms("Search", props.sortBy, props.search_value)
     }
 
     return (
@@ -32,8 +32,8 @@ const SearchBlock = (props) => {
                         <input className={ style.customInput } type="text" 
                                value={ props.search_value }
                                placeholder={ props.placeholder } 
-                               onChange={ changeSearchValue }/>
-                        <NavLink to="/search">
+                               onChange={ changeSearchValue } />
+                        <NavLink to={ `/search/${ props.search_value }` }>
                             <div className={ style.searchMovieButton }
                                  onClick={ search } >SEARCH</div>
                         </NavLink>
@@ -46,9 +46,18 @@ const SearchBlock = (props) => {
 
 let mapStateToProps = (state) => ({ 
     search_value: state.films.search_value,
-    placeholder: state.films.placeholder
+    placeholder: state.films.placeholder,
+    sortBy: state.films.sortBy
 })
 
-const SearchBlockContainer = connect(mapStateToProps, { changeSearchValue })(SearchBlock);
+let mapDispatchToProps = {
+    changeSearchValue,
+    changeFilmsList,
+    getFilms
+}
+
+const SearchBlockContainer = compose(
+    connect(mapStateToProps, mapDispatchToProps)
+)(SearchBlock);
 
 export default SearchBlockContainer;

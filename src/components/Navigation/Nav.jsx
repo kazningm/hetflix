@@ -8,26 +8,23 @@ import { connect } from "react-redux";
 import { changeFilmsList } from "../../reducers/films_reducer";
 
 const Nav = (props) => {
-    const changeFilmsList = () => {
-        // console.log(props);
-    }
     return (
         <nav>
             <ul className={style.headNav}>
                 <li>
-                    <NavLink to="/all" activeClassName={ style.active } onClick={ changeFilmsList }>ALL</NavLink>
+                    <NavLink to="/all" activeClassName={ style.active }>ALL</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/family" activeClassName={ style.active } onClick={ changeFilmsList } >FAMILY</NavLink>
+                    <NavLink to="/family" activeClassName={ style.active }>FAMILY</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/action" activeClassName={ style.active } onClick={ changeFilmsList } >ACTION</NavLink>
+                    <NavLink to="/action" activeClassName={ style.active }>ACTION</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/drama" activeClassName={ style.active } onClick={ changeFilmsList } >DRAMA</NavLink>
+                    <NavLink to="/drama" activeClassName={ style.active }>DRAMA</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/crime" activeClassName={ style.active } onClick={ changeFilmsList } >CRIME</NavLink>
+                    <NavLink to="/crime" activeClassName={ style.active }>CRIME</NavLink>
                 </li>
                 <li style={{ flexGrow: 10 }}></li>
                 <li style={{ paddingRight: 0 }}>

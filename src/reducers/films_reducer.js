@@ -30,15 +30,6 @@ const init_state = {
     filmsList: []
 }
 
-let sortBy = (arr, sort) => {
-    if (sort === RELEASE_DATA) {
-        return _.sortBy(arr, (film) => film.release_date).reverse()
-    } else if (sort === RATING) {
-        return _.sortBy(arr, (film) => film.vote_average).reverse()
-    } 
-    return arr;
-}
-
 const films_reducer = (state=init_state, action) => {
     let stateCopy = _.cloneDeep(state);
 
@@ -58,7 +49,7 @@ const films_reducer = (state=init_state, action) => {
         stateCopy.isErrorShow = false;
     } else if (action.type === CHANGE_SORT) {
         stateCopy.sortBy = action.sort;
-        stateCopy.filmsList = sortBy(stateCopy.filmsList, action.sort)
+        // stateCopy.filmsList = sortBy(stateCopy.filmsList, action.sort)
     } else if (action.type === CHANGE_SEARCH_VALUE) {
         stateCopy.search_value = action.value;
     }
@@ -67,6 +58,15 @@ const films_reducer = (state=init_state, action) => {
 }
 
 export default films_reducer;
+
+let sort = (arr, sort) => {
+    if (sort === RELEASE_DATA) {
+        return _.sortBy(arr, (film) => film.release_date).reverse()
+    } else if (sort === RATING) {
+        return _.sortBy(arr, (film) => film.vote_average).reverse()
+    } 
+    return arr;
+}
 
 // ACTIONS //////////////////////////////////////////////////
 
@@ -99,16 +99,27 @@ export let changeFilmsList = (data) => ({
     data
 })
 
-export let getFilmsByGenre = (genre) => {
+export let getFilms = (genre, sortBy, search_value) => {
     return (dispatch) => {
         dispatch(hideError());
         dispatch(hideFilms());
         dispatch(showLoader());
         axios.get("http://localhost:4000/movies")
             .then(data => {
-                let films = data.data.data;
+                let films = sort(data.data.data, sortBy);
                 if (genre !== "All") {
-                    dispatch(changeFilmsList(films.filter(film => _.includes(film.genres, genre))));
+                    if (genre === "Search") {
+                        if (search_value) 
+                            dispatch(changeFilmsList(films.filter(film => { 
+                                let f = film.title.toLowerCase()
+                                let sv = search_value.toLowerCase()
+                                return f.indexOf(sv) !== -1
+                            })));
+                        else 
+                            dispatch(changeFilmsList([]));
+                    }
+                    else
+                        dispatch(changeFilmsList(films.filter(film => _.includes(film.genres, genre))));
                 }
                 else 
                     dispatch(changeFilmsList(films));

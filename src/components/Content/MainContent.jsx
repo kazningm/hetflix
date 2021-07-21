@@ -12,6 +12,7 @@ const MainContent = () => {
             <Route path="/action" render={() => <FilmsGrid />} />
             <Route path="/drama" render={() => <FilmsGrid />} />
             <Route path="/crime" render={() => <FilmsGrid />} />
+            <Route path="/search/:film?" render={() => <FilmsGrid />} />
         </main>
     );
 }

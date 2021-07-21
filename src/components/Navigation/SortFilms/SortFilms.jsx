@@ -19,6 +19,7 @@ const SortFilms = (props) => {
 }
 
 let mapStateToProps = (state) => ({
+    // sortBy: state.films.SortBy,
     sortList: state.films.sortList
 })
 
