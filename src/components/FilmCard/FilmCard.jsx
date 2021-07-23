@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { openActionList, hideActionList } from "./../../reducers/action_list_reducer";
+import { openActionList } from "./../../reducers/action_list_reducer";
+import PropTypes from "prop-types";
 import style from "./FilmCard.module.css";
 
 const FilmCard = (props) => {
@@ -14,8 +15,6 @@ const FilmCard = (props) => {
     let openActionList = (event) => {
         props.openActionList(event.pageY, event.pageX)
     }
-
-    let hideActionList = props.hideActionList;
 
     return (
         <div className={ style.rootCard }>
@@ -38,7 +37,12 @@ let mapStateToProps = (state) => ({
 })
 
 const FilmCardContainer = compose(
-    connect(mapStateToProps, { openActionList, hideActionList })
+    connect(mapStateToProps, { openActionList })
 )(FilmCard);
 
 export default FilmCardContainer;
+
+FilmCard.propTypes = {
+    filmInfo: PropTypes.object,
+    openActionList: PropTypes.func
+}
