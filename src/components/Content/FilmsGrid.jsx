@@ -7,9 +7,9 @@ import { withRouter } from "react-router-dom";
 import { withReqToAPI } from "./../HOCS/withReqToAPI";
 import NotFound from "./NotFound";
 import Error from "./../Error/Error";
+import PropTypes from "prop-types";
 
 const FilmGrid = (props) => {
-    // console.log(props)
     if (props.isErrorShow) {
         return <Error />
     }
@@ -57,3 +57,13 @@ const FilmGridContainer = compose(
 )(FilmGrid)
 
 export default FilmGridContainer;
+
+FilmGrid.propTypes = {
+    filmsList: PropTypes.array,
+    sortBy: PropTypes.string,
+    isFilmsShow: PropTypes.bool,
+    isErrorShow: PropTypes.bool,
+    changeFilmsList: PropTypes.func,
+    getFilms: PropTypes.func
+}
+
