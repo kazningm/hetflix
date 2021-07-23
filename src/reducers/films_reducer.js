@@ -33,28 +33,60 @@ const init_state = {
 const films_reducer = (state=init_state, action) => {
     let stateCopy = _.cloneDeep(state);
 
-    if (action.type === CHANGE_FILMS_LIST) {
-        stateCopy.filmsList = action.data
-    } else if (action.type === SHOW_LOADER) {
-        stateCopy.isLoaderShow = true;
-    } else if (action.type === HIDE_LOADER) {
-        stateCopy.isLoaderShow = false;
-    } else if (action.type === SHOW_FILMS) {
-        stateCopy.isFilmsShow = true;
-    } else if (action.type === HIDE_FILMS) {
-        stateCopy.isFilmsShow = false;
-    } else if (action.type === SHOW_ERROR) {
-        stateCopy.isErrorShow = true;
-    } else if (action.type === HIDE_ERROR) {
-        stateCopy.isErrorShow = false;
-    } else if (action.type === CHANGE_SORT) {
-        stateCopy.sortBy = action.sort;
-        // stateCopy.filmsList = sortBy(stateCopy.filmsList, action.sort)
-    } else if (action.type === CHANGE_SEARCH_VALUE) {
-        stateCopy.search_value = action.value;
+    switch (action.type) {
+        case  CHANGE_FILMS_LIST:
+            stateCopy.filmsList = [...action.data];
+            break;
+        case SHOW_LOADER:
+            stateCopy.isLoaderShow = true;
+            break;
+        case HIDE_LOADER:
+            stateCopy.isLoaderShow = false;
+            break;
+        case SHOW_FILMS:
+            stateCopy.isFilmsShow = true;
+            break;
+        case HIDE_FILMS:
+            stateCopy.isFilmsShow = false;
+            break;
+        case SHOW_ERROR:
+            stateCopy.isErrorShow = true;
+            break;
+        case HIDE_ERROR:
+            stateCopy.isErrorShow = false;
+            break;
+        case CHANGE_SORT:
+            stateCopy.sortBy = action.sort;
+            break;
+        case CHANGE_SEARCH_VALUE:
+            stateCopy.search_value = action.value;
+            break;
+        default:
+            return stateCopy;
     }
-
     return stateCopy;
+
+    // if (action.type === CHANGE_FILMS_LIST) {
+    //     stateCopy.filmsList = action.data
+    // } else if (action.type === SHOW_LOADER) {
+    //     stateCopy.isLoaderShow = true;
+    // } else if (action.type === HIDE_LOADER) {
+    //     stateCopy.isLoaderShow = false;
+    // } else if (action.type === SHOW_FILMS) {
+    //     stateCopy.isFilmsShow = true;
+    // } else if (action.type === HIDE_FILMS) {
+    //     stateCopy.isFilmsShow = false;
+    // } else if (action.type === SHOW_ERROR) {
+    //     stateCopy.isErrorShow = true;
+    // } else if (action.type === HIDE_ERROR) {
+    //     stateCopy.isErrorShow = false;
+    // } else if (action.type === CHANGE_SORT) {
+    //     stateCopy.sortBy = action.sort;
+    // } else if (action.type === CHANGE_SEARCH_VALUE) {
+    //     stateCopy.search_value = action.value;
+    // }
+
+    // return stateCopy;
 }
 
 export default films_reducer;

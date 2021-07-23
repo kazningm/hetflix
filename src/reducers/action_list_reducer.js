@@ -15,18 +15,38 @@ const init_state = {
 const action_list_reducer = (state=init_state, action) => {
     let stateCopy = _.cloneDeep(state);
 
-    if (action.type === CHANGE_PLACE) {
-        stateCopy.top = action.top;
-        stateCopy.left = action.left;
-    } else if (action.type === CHANGE_FILM_ID) {
-        stateCopy.film_id = action.film_id;
-    } else if (action.type === SHOW_ACTION_LIST) {
-        stateCopy.isActionListShow = true;
-    } else if (action.type === HIDE_ACTION_LIST) {
-        stateCopy.isActionListShow = false;
+    switch (action.type) {
+        case CHANGE_PLACE:
+            stateCopy.top = action.top;
+            stateCopy.left = action.left;
+            break;
+        case CHANGE_FILM_ID:
+            stateCopy.film_id = action.film_id;
+            break;
+        case SHOW_ACTION_LIST:
+            stateCopy.isActionListShow = true;
+            break;
+        case HIDE_ACTION_LIST:
+            stateCopy.isActionListShow = false;
+            break;
+        default:
+            return stateCopy;
     }
 
     return stateCopy;
+
+    // if (action.type === CHANGE_PLACE) {
+    //     stateCopy.top = action.top;
+    //     stateCopy.left = action.left;
+    // } else if (action.type === CHANGE_FILM_ID) {
+    //     stateCopy.film_id = action.film_id;
+    // } else if (action.type === SHOW_ACTION_LIST) {
+    //     stateCopy.isActionListShow = true;
+    // } else if (action.type === HIDE_ACTION_LIST) {
+    //     stateCopy.isActionListShow = false;
+    // }
+
+    // return stateCopy;
 }
 
 export default action_list_reducer;
