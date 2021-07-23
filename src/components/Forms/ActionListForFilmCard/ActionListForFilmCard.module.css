@@ -1,6 +1,6 @@
 .actionList {
     background-color: #232323;
-    display: inline-flex;
+    display: none;
     flex-direction: column;
     color:white;
     list-style-type: none;
