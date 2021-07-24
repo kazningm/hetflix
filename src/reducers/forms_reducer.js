@@ -63,6 +63,21 @@ export let hideAddForm = () => ({
     type: ADD_FORM_HIDE
 })
 
+export let openAddForm = () => {
+    return (dispatch) => {
+        dispatch(showAddForm());
+        dispatch(hideDeleteFilm());
+        dispatch(hideLogin());
+        dispatch(hideSuccess());
+    }
+}
+
+export let closeAddForm = () => {
+    return (dispatch) => {
+        dispatch(hideAddForm());
+    }
+}
+
 export let showDeleteFilm = () => ({
     type: DELETE_FILM_SHOW
 })

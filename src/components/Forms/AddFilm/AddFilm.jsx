@@ -3,9 +3,12 @@ import style from "./AddFilm.module.css";
 import { useFormik } from "formik";
 import { compose } from "redux";
 import { connect } from "react-redux";
+import { closeAddForm } from "../../../reducers/forms_reducer";
 
 const AddFilm = (props) => {
-    debugger
+    
+    let closeAddForm = props.closeAddForm;
+
     const formik = useFormik({
         initialValues: {
             film_id: "",
@@ -25,7 +28,7 @@ const AddFilm = (props) => {
         <div className={style.root}>
             <div className={style.formWrapper}>
                 <form onSubmit={ formik.handleSubmit }>
-                    <div className={style.closeDiv}>
+                    <div className={style.closeDiv} onClick={ closeAddForm }>
                         &#10006;
                     </div>
                     <div className={style.actionText}>
@@ -102,8 +105,12 @@ let mapStateToProps = (state) => ({
     isAddFormShow: state.forms.isAddFormShow
 }) 
 
+let mapDispatchToProps = {
+    closeAddForm
+}
+
 const AddFilmContainer = compose(
-    connect(mapStateToProps, null)
+    connect(mapStateToProps, mapDispatchToProps)
 )(AddFilm)
 
 export default AddFilmContainer;

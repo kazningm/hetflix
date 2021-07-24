@@ -5,15 +5,14 @@ import { NavLink} from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { changeSearchValue, changeFilmsList, getFilms } from "./../../reducers/films_reducer";
+import { openAddForm } from "./../../reducers/forms_reducer";
 
 const SearchBlock = (props) => {  
     let changeSearchValue = (event) => {
         props.changeSearchValue(event.target.value);
     }
 
-    let search = () => {
-        // props.getFilms("Search", props.sortBy, props.search_value)
-    }
+    let openAddForm = props.openAddForm;
 
     return (
         <div className={ style.rootWrapper }>
@@ -22,9 +21,7 @@ const SearchBlock = (props) => {
                     <NavLink to="/#">
                         <img className={ style.logo } src={ logo } alt="" />
                     </NavLink>
-                    <NavLink to="/add">
-                        <div className={ style.addMovieButton }>+ ADD MOVIE</div>
-                    </NavLink>
+                    <div className={ style.addMovieButton } onClick={ openAddForm } >+ ADD MOVIE</div>
                 </div>   
                 <div className={ style.searchDiv }>
                     <div className={ style.text }>FIND YOU MOVIE</div>
@@ -34,8 +31,7 @@ const SearchBlock = (props) => {
                                placeholder={ props.placeholder } 
                                onChange={ changeSearchValue } />
                         <NavLink to={ `/search/${ props.search_value }` }>
-                            <div className={ style.searchMovieButton }
-                                 onClick={ search } >SEARCH</div>
+                            <div className={ style.searchMovieButton } >SEARCH</div>
                         </NavLink>
                     </div>
                 </div>             
@@ -53,7 +49,8 @@ let mapStateToProps = (state) => ({
 let mapDispatchToProps = {
     changeSearchValue,
     changeFilmsList,
-    getFilms
+    getFilms,
+    openAddForm
 }
 
 const SearchBlockContainer = compose(

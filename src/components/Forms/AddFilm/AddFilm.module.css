@@ -79,6 +79,13 @@
 
 .closeDiv {
     padding-top: 20px;
+    transition-property: color;
+    transition-duration: 300ms;
+}
+
+.closeDiv:hover {
+    cursor: pointer;
+    color: #f65261;
 }
 
 .buttonsDiv {
