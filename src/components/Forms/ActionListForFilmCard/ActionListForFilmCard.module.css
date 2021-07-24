@@ -17,7 +17,7 @@
 .actionList li {
     padding: 5px 15px;
     cursor: pointer;
-    transition-property: background-color;
+    transition-property: background-color, color;
     transition-duration: 300ms;
 }
 
@@ -26,6 +26,10 @@
     text-align: right;
 }
 
-.actionList li:hover {
+.actionList li:not(:first-child):hover {
     background-color: #f65261;
+}
+
+.actionList li:first-child:hover {
+    color: #f65261;
 }
