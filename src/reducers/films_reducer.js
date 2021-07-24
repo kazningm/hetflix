@@ -177,7 +177,7 @@ export let changeSort = (sort) => ({
     sort 
 })
 
-export const changeSearchValue = (value) => ({
+export let changeSearchValue = (value) => ({
     type: CHANGE_SEARCH_VALUE,
     value
 })

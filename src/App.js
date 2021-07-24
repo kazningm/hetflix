@@ -9,6 +9,7 @@ import Loader from "./components/Content/Loader";
 import { Provider } from "react-redux";
 import React from "react";
 import store from "./store/store";
+import AddFilm from "./components/Forms/AddFilm/AddFilm";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Loader />
           <MainContent />
           <ActionListForFilmCard />
+          <AddFilm />
           {/* <Error /> */}
           {/* <footer>
             футер

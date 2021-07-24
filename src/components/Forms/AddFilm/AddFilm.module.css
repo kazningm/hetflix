@@ -1,0 +1,117 @@
+.root {
+    color: white;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+}
+
+.formWrapper {
+    min-width: 300px;
+    width: 35%;
+    align-self: center;
+}
+
+.formWrapper form {
+    background-color: #232323;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.3);
+    border-radius: 5px;
+}
+
+.actionText {
+    font-size: 200%;
+    letter-spacing: 2pt;
+    padding: 0 0 10px 45px
+}
+
+.formWrapper form input, .formWrapper form select  {
+    font-family: sans-serif;
+    letter-spacing: 1pt;
+    margin: 0px 40px 10px 40px;
+    padding-left: 20px;
+    font-size: 120%;
+    height: 30px;
+    border-radius: 6px;
+    border-width: 0;
+    color: white;
+    background-color: #424242;
+    transition-property: background-color;
+    transition-duration: 300ms;    
+    appearance: none;
+}
+
+.formWrapper form input:focus, .formWrapper form select:focus {
+    border-width: 0;
+    outline: 0;
+    background-color: #555555;
+}
+
+.formWrapper form input:disabled {
+    background-color: #151515;
+}
+
+.formWrapper form select:hover, 
+.dateInput:hover {
+    cursor: pointer;
+    background-color: #555555;
+}
+
+.formWrapper form input:hover {
+    background-color: #555555;
+}
+
+.formWrapper form label {
+    color: #f65261;
+    margin: 5px 40px 5px 40px;
+}
+
+.buttonsDiv, .closeDiv {
+    text-align: right;
+    padding-right: 20px;
+}
+
+.closeDiv {
+    padding-top: 20px;
+}
+
+.buttonsDiv {
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+
+.reset, .save {
+    height: 40px;
+    background-color: #232323;
+    padding: 5px 20px;
+    border: none;
+    border-radius: 5px;
+}
+
+.reset {
+    color: #f65261;
+    border: 1px solid #f65261;
+    transition-property: background-color;
+    transition-duration: 300ms;
+}
+
+.reset:hover {
+    cursor: pointer;
+}
+
+.save {
+    color: white;
+    background-color: #f65261;
+    margin-left: 10px;
+}
+
+.save:hover {
+    cursor: pointer;
+}
