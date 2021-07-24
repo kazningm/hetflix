@@ -5,10 +5,12 @@ import thunk from "redux-thunk";
 
 import films_reducer from "./../reducers/films_reducer";
 import action_list_reducer from "./../reducers/action_list_reducer";
+import forms_reducer from "./../reducers/forms_reducer";
 
 let store = createStore(combineReducers({
     films: films_reducer,
-    action_list: action_list_reducer
+    action_list: action_list_reducer,
+    forms: forms_reducer
 }), applyMiddleware(thunk))
 
 window.store = store;
