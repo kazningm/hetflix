@@ -13,7 +13,7 @@ const FilmCard = (props) => {
     let genres = filmInfo.genres.join(", ");
 
     let openActionList = (event) => {
-        props.openActionList(event.pageY, event.pageX)
+        props.openActionList(event.pageY, event.pageX);
     }
 
     return (
@@ -26,8 +26,7 @@ const FilmCard = (props) => {
                 <div className={ style.filmName }>{ name }</div>
                 <div className={ style.filmYear }>{ date }</div>
             </div>
-            <div className={ style.filmGenre }>{ genres }</div>
-            
+            <div className={ style.filmGenre }>{ genres }</div>            
         </div>
     );
 }

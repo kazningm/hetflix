@@ -12,7 +12,7 @@ const SearchBlock = (props) => {
         props.changeSearchValue(event.target.value);
     }
 
-    let openAddForm = props.openAddForm;
+    let openAddForm = props.openAddForm
 
     return (
         <div className={ style.rootWrapper }>

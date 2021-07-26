@@ -21,6 +21,7 @@ const RATING = "RATING";
 
 const init_state = {
     search_value: "",
+    genres: ["Action", "Crime", "Documentary", "Horror", "Comedy", "Fantasy"],
     placeholder: "What do you want to watch?",
     isLoaderShow: false,
     isFilmsShow: true,

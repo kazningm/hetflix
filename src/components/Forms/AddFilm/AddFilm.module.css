@@ -31,46 +31,6 @@
     padding: 0 0 10px 45px
 }
 
-.formWrapper form input, .formWrapper form select  {
-    font-family: sans-serif;
-    letter-spacing: 1pt;
-    margin: 0px 40px 10px 40px;
-    padding-left: 20px;
-    font-size: 120%;
-    height: 30px;
-    border-radius: 6px;
-    border-width: 0;
-    color: white;
-    background-color: #424242;
-    transition-property: background-color;
-    transition-duration: 300ms;    
-    appearance: none;
-}
-
-.formWrapper form input:focus, .formWrapper form select:focus {
-    border-width: 0;
-    outline: 0;
-    background-color: #555555;
-}
-
-.formWrapper form input:disabled {
-    background-color: #151515;
-}
-
-.formWrapper form select:hover, 
-.dateInput:hover {
-    cursor: pointer;
-    background-color: #555555;
-}
-
-.formWrapper form input:hover {
-    background-color: #555555;
-}
-
-.formWrapper form label {
-    color: #f65261;
-    margin: 5px 40px 5px 40px;
-}
 
 .buttonsDiv, .closeDiv {
     text-align: right;

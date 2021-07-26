@@ -1,17 +1,30 @@
 import React from "react";
+import * as Yup from "yup";
 import style from "./AddFilm.module.css";
 import { useFormik } from "formik";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { closeAddForm } from "../../../reducers/forms_reducer";
+import Input from "./FormControl/Input";
+import Select from "./FormControl/Select";
 
 const AddFilm = (props) => {
     
     let closeAddForm = props.closeAddForm;
 
+    const validationSchema = Yup.object({
+        film_id: Yup.string().required("Required"),
+        title: Yup.string().required("Required"),
+        release_date: Yup.date().required("Required"),
+        film_url: Yup.string().url(),
+        genre: Yup.string().required("Required"),
+        overview: Yup.string().required("Required"),
+        runtime: Yup.number().moreThan(0).required("Required")
+    });
+
     const formik = useFormik({
         initialValues: {
-            film_id: "",
+            film_id:  "",
             title: "",
             release_date: "",
             film_url: "",
@@ -20,8 +33,17 @@ const AddFilm = (props) => {
             runtime: ""
         },
         onSubmit (values) {
-            console.log(values)
-        }
+            console.log(values)            
+        },
+        validationSchema
+        // validate (values) {
+        //     let errors = {}
+
+        //     for (let v in values) 
+        //         if (!values[v]) errors[v] = "Required";
+
+        //     return errors;
+        // }
     })
 
     return props.isAddFormShow && (
@@ -32,64 +54,58 @@ const AddFilm = (props) => {
                         &#10006;
                     </div>
                     <div className={style.actionText}>
-                        EDIT MOVIE
+                        ADD MOVIE
                     </div>
-                    <label htmlFor="film_id">FILM ID</label>
-                    <input type="text" 
-                           id="film_id" 
-                           name="film_id" 
+                    <Input label="FILM ID" id="film_id" type="text"
                            onChange={ formik.handleChange } 
-                           value={ formik.values.film_id }
-                           disabled />
+                           onBlur={ formik.handleBlur }
+                           value={ formik.values.film_id } 
+                           error={ formik.errors.film_id }
+                           touched={ formik.touched.film_id } />
 
-                    <label htmlFor="title">TITLE</label>
-                    <input type="text" 
-                           id="title" 
-                           name="title" 
-                           onChange={ formik.handleChange }
-                           value={ formik.values.title } />
+                    <Input label="TITLE" id="title" type="text"
+                           onChange={ formik.handleChange } 
+                           onBlur={ formik.handleBlur }
+                           value={ formik.values.title } 
+                           error={ formik.errors.title } 
+                           touched={ formik.touched.title } />
 
-                    <label htmlFor="release_date">RELEASE DATE</label>
-                    <input type="date" 
-                           id="release_date" 
-                           name="release_date" 
-                           className={style.dateInput} 
-                           onChange={ formik.handleChange }
-                           value={ formik.values.release_date } />
+                    <Input label="RELEASE DATE" id="release_date" type="date"
+                           onChange={ formik.handleChange } 
+                           onBlur={ formik.handleBlur }
+                           value={ formik.values.release_date } 
+                           error={ formik.errors.release_date }
+                           touched={ formik.touched.release_date }
+                           cls={ style.dateInput } /> 
+                    
+                    <Input label="FILM URL" id="film_url" type="text"
+                           onChange={ formik.handleChange } 
+                           onBlur={ formik.handleBlur }
+                           value={ formik.values.film_url } 
+                           error={ formik.errors.film_url }
+                           touched={ formik.touched.film_url } /> 
 
-                    <label htmlFor="film_url">FILM URL</label>
-                    <input type="text" 
-                           id="film_url" 
-                           name="film_url" 
-                           onChange={ formik.handleChange }
-                           value={ formik.values.film_url } />
+                    <Select label="GENRE" id="genre"
+                            onChange={ formik.handleChange } 
+                            onBlur={ formik.handleBlur }
+                            value={ formik.values.genre }
+                            options={ props.options } 
+                            error={ formik.errors.genre }
+                            touched={ formik.touched.genre } />
 
-                    <label htmlFor="genre">GENRE</label>
-                    <select name="genre" 
-                            id="genre"
-                            onChange={ formik.handleChange }
-                            value={ formik.values.genre } >
-                        <option value="Action">Action</option>
-                        <option value="Crime">Crime</option>
-                        <option value="Documentary">Documentary</option>
-                        <option value="Horror">Horror</option>
-                        <option value="Comedy">Comedy</option>
-                        <option value="Fantasy">Fantasy</option>
-                    </select>
+                    <Input label="OVERVIEW" id="overview" type="text"
+                           onChange={ formik.handleChange } 
+                           onBlur={ formik.handleBlur }
+                           value={ formik.values.overview } 
+                           error={ formik.errors.overview } 
+                           touched={ formik.touched.overview }/> 
 
-                    <label htmlFor="overview">OVERVIEW</label>
-                    <input type="text" 
-                           id="overview" 
-                           name="overview"
-                           onChange={ formik.handleChange }
-                           value={ formik.values.overview } />
-
-                    <label htmlFor="runtime">RUNTIME</label>
-                    <input type="text" 
-                           id="runtime" 
-                           name="runtime" 
-                           onChange={ formik.handleChange }
-                           value={ formik.values.runtime }/>
+                    <Input label="RUNTIME" id="runtime" type="text"
+                           onChange={ formik.handleChange } 
+                           onBlur={ formik.handleBlur }
+                           value={ formik.values.runtime } 
+                           error={ formik.errors.runtime } 
+                           touched={ formik.touched.runtime }/> 
 
                     <div className={style.buttonsDiv}>
                         <button className={style.reset} type="reset">RESET</button>
@@ -102,7 +118,8 @@ const AddFilm = (props) => {
 }
 
 let mapStateToProps = (state) => ({
-    isAddFormShow: state.forms.isAddFormShow
+    isAddFormShow: state.forms.isAddFormShow,
+    options: state.films.genres
 }) 
 
 let mapDispatchToProps = {

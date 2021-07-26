@@ -1,0 +1,54 @@
+.error {
+    border: 1px solid #f65261 !important;
+}
+
+.errorText {
+    color: #f65261;
+    font-size: 80%;
+    text-align: right;
+}
+
+.formControl {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 40px 10px 40px;
+}
+
+.formControl input, .formControl select  {
+    font-family: sans-serif;
+    letter-spacing: 1pt;
+    padding-left: 10px;
+    height: 25px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    color: white;
+    background-color: #424242;
+    transition-property: background-color;
+    transition-duration: 300ms;    
+    appearance: none;
+}
+
+.formControl input:focus, .formControl select:focus {
+    outline: 0;
+    background-color: #555555;
+}
+
+.formControl input:disabled {
+    background-color: #151515;
+}
+
+.formControl select:not(:disabled):hover, 
+.dateInput:not(:disabled):hover {
+    cursor: pointer;
+    background-color: #555555;
+}
+
+.formControl input:not(:disabled):hover {
+    background-color: #555555;
+}
+
+.formControl label {
+    color: #f65261;
+    margin-bottom: 5px;
+    /* margin: 5px 40px 5px 40px; */
+}

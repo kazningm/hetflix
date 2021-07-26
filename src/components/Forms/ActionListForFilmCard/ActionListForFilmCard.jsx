@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { hideActionList } from "./../../../reducers/action_list_reducer";
+import { openAddForm} from "./../../../reducers/forms_reducer";
 import PropTypes from "prop-types";
 import style from "./ActionListForFilmCard.module.css";
 
@@ -38,8 +39,13 @@ let mapStateToProps = (state) => ({
     left: state.action_list.left
 })
 
+let mapDispatchToProps = { 
+    hideActionList, 
+    openAddForm
+}
+
 let ActionListForFilmCardContainer = compose(
-    connect(mapStateToProps, { hideActionList })
+    connect(mapStateToProps, mapDispatchToProps)
 )(ActionListForFilmCard)
 
 export default ActionListForFilmCardContainer;
