@@ -4,16 +4,16 @@ import style from "./AddFilm.module.css";
 import { useFormik } from "formik";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { closeAddForm } from "../../../reducers/forms_reducer";
+import { closeEditForm } from "../../../reducers/forms_reducer";
 import Input from "./FormControl/Input";
 import Select from "./FormControl/Select";
 
-const AddFilm = (props) => {
-    
-    let closeAddForm = props.closeAddForm;
+const EditFilm = (props) => {
+    let filmInfo = props.filmInfo;
+    let closeEditForm = props.closeEditForm;
 
     const validationSchema = Yup.object({
-        film_id: Yup.string().required("Required"),
+        film_id: Yup.number().required("Required"),
         title: Yup.string().required("Required"),
         release_date: Yup.date().required("Required"),
         film_url: Yup.string().url(),
@@ -24,72 +24,72 @@ const AddFilm = (props) => {
 
     const formik = useFormik({
         initialValues: {
-            film_id:  "",
-            title: "",
-            release_date: "",
-            film_url: "",
+            film_id:  filmInfo.id,
+            title: filmInfo.title,
+            release_date: filmInfo.release_date,
+            film_url: filmInfo.poster_path,
             genre: "",
-            overview: "",
-            runtime: ""
+            overview: filmInfo.overview,
+            runtime: filmInfo.runtime
         },
         onSubmit (values, onSubmitForms) {
             onSubmitForms.resetForm();        
-        },      
+        },
         validationSchema,
-        enableReinitialize: true,
-        // validateOnMount: true
+        enableReinitialize: true
     })
 
-    return props.isAddFormShow && (
+    return props.isEditFormShow && (
         <div className={style.root}>
             <div className={style.formWrapper}>
                 <form onSubmit={ formik.handleSubmit } onReset={ formik.handleReset }>
-                    <div className={style.closeDiv} onClick={ closeAddForm }>
+                    <div className={style.closeDiv} onClick={ closeEditForm }>
                         &#10006;
                     </div>
                     <div className={style.actionText}>
-                        ADD MOVIE
+                        EDIT MOVIE
                     </div>
                     <Input label="FILM ID" id="film_id" type="text"
-                           { ...formik.getFieldProps("film_id") } 
+                           {...formik.getFieldProps("film_id")} 
                            error={ formik.errors.film_id }
-                           touched={ formik.touched.film_id } />
+                           touched={ formik.touched.film_id } 
+                           disabled={ true } />
 
                     <Input label="TITLE" id="title" type="text"
-                           { ...formik.getFieldProps("title") } 
+                           {...formik.getFieldProps("title")}  
                            error={ formik.errors.title } 
                            touched={ formik.touched.title } />
 
                     <Input label="RELEASE DATE" id="release_date" type="date"
-                           { ...formik.getFieldProps("release_date") } 
+                           {...formik.getFieldProps("release_date")} 
                            error={ formik.errors.release_date }
                            touched={ formik.touched.release_date }
                            cls={ style.dateInput } /> 
                     
                     <Input label="FILM URL" id="film_url" type="text"
-                           { ...formik.getFieldProps("film_url") } 
+                           {...formik.getFieldProps("film_url")} 
                            error={ formik.errors.film_url }
                            touched={ formik.touched.film_url } /> 
 
                     <Select label="GENRE" id="genre"
-                           { ...formik.getFieldProps("genre") } 
+                            {...formik.getFieldProps("genre")} 
                             options={ props.options } 
                             error={ formik.errors.genre }
                             touched={ formik.touched.genre } />
 
                     <Input label="OVERVIEW" id="overview" type="text"
-                           { ...formik.getFieldProps("overview") } 
+                           {...formik.getFieldProps("overview")} 
                            error={ formik.errors.overview } 
                            touched={ formik.touched.overview }/> 
 
                     <Input label="RUNTIME" id="runtime" type="text"
-                           { ...formik.getFieldProps("runtime") } 
+                           {...formik.getFieldProps("runtime")} 
                            error={ formik.errors.runtime } 
                            touched={ formik.touched.runtime }/> 
 
                     <div className={style.buttonsDiv}>
                         <button className={style.reset} type="reset">RESET</button>
-                        <button className={style.save} type="submit">SUBMIT</button>
+                        <button className={style.save} type="submit">SAVE</button>
                     </div>
                 </form>
             </div>
@@ -98,16 +98,17 @@ const AddFilm = (props) => {
 }
 
 let mapStateToProps = (state) => ({
-    isAddFormShow: state.forms.isAddFormShow,
-    options: state.films.genres
+    isEditFormShow: state.forms.isEditFormShow,
+    options: state.films.genres,
+    filmInfo: state.forms.filmInfo
 }) 
 
 let mapDispatchToProps = {
-    closeAddForm
+    closeEditForm
 }
 
-const AddFilmContainer = compose(
+const EditFilmContainer = compose(
     connect(mapStateToProps, mapDispatchToProps)
-)(AddFilm)
+)(EditFilm)
 
-export default AddFilmContainer;
+export default EditFilmContainer;

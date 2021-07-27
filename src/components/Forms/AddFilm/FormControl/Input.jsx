@@ -4,7 +4,6 @@ import clsx from "clsx";
 import style from "./FormControl.module.css";
 
 const Input = (props) => {
-
     let label = props.label;
     let id = props.id;
     let type = props.type;
@@ -38,7 +37,6 @@ Input.propTypes = {
     id: PropTypes.string,
     type: PropTypes.string,
     onChange: PropTypes.func,
-    value: PropTypes.string,
     error: PropTypes.string,
     disabled: PropTypes.bool,
     cls: PropTypes.string

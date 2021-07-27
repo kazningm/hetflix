@@ -82,3 +82,8 @@
 .save:hover {
     cursor: pointer;
 }
+
+.save:disabled {
+    background-color: #232323;
+    border: 1px solid #424242;
+}

@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { openActionList } from "./../../reducers/action_list_reducer";
+import { changeFilmInfo } from "./../../reducers/forms_reducer";
 import PropTypes from "prop-types";
 import style from "./FilmCard.module.css";
 
@@ -13,6 +14,7 @@ const FilmCard = (props) => {
     let genres = filmInfo.genres.join(", ");
 
     let openActionList = (event) => {
+        props.changeFilmInfo(filmInfo);
         props.openActionList(event.pageY, event.pageX);
     }
 
@@ -36,7 +38,7 @@ let mapStateToProps = (state) => ({
 })
 
 const FilmCardContainer = compose(
-    connect(mapStateToProps, { openActionList })
+    connect(mapStateToProps, { openActionList, changeFilmInfo })
 )(FilmCard);
 
 export default FilmCardContainer;
