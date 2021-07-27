@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { hideErrorAction } from "./../../../../reducers/forms_reducer";
+import { hideErrorAction } from "./../../../reducers/forms_reducer";
 import style from "./ErrorAction.module.css";
 
 const ErrorAction = (props) => {

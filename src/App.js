@@ -11,8 +11,8 @@ import React from "react";
 import store from "./store/store";
 import AddFilm from "./components/Forms/AddFilm/AddFilm";
 import EditFilm from "./components/Forms/AddFilm/EditFilm";
-import SuccessAction from "./components/Forms/SuccessAction/SuccessAction";
-import ErrorAction from "./components/Forms/AddFilm/ErrorAction/ErrorAction";
+import SuccessAction from "./components/Modal/SuccessAction/SuccessAction";
+import ErrorAction from "./components/Modal/ErrorAction/ErrorAction";
 
 function App() {
   return (
