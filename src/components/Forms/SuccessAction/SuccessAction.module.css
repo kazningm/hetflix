@@ -1,0 +1,54 @@
+.root {
+    color: white;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+}
+
+.formWrapper {
+    background-color: #232323;
+    border-radius: 5px;
+    min-width: 300px;
+    width: 35%;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.formWrapper div {
+    align-items: center;
+}
+
+.icon {
+    background-color: #f65261;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    font-size: 200%;
+}
+
+.congrat {
+    font-size: 200%;
+    letter-spacing: 2pt;
+}
+
+.close {
+    align-self: flex-end;
+    transition-property: color;
+    transition-duration: 300ms;
+}
+
+.close:hover {
+    color: #f65261;
+    cursor: pointer;
+}

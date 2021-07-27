@@ -11,6 +11,8 @@ import React from "react";
 import store from "./store/store";
 import AddFilm from "./components/Forms/AddFilm/AddFilm";
 import EditFilm from "./components/Forms/AddFilm/EditFilm";
+import SuccessAction from "./components/Forms/SuccessAction/SuccessAction";
+import ErrorAction from "./components/Forms/AddFilm/ErrorAction/ErrorAction";
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
           <ActionListForFilmCard />
           <AddFilm />
           <EditFilm />
+          <SuccessAction />
+          <ErrorAction />
           {/* <Error /> */}
           {/* <footer>
             футер
