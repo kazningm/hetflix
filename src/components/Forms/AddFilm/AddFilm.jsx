@@ -6,10 +6,13 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import Input from "./FormControl/Input";
 import Select from "./FormControl/Select";
+import { hideAddForm } from "./../../../reducers/forms_reducer";
 
 const AddFilm = (props) => {
-    
-    let closeAddForm =  () => window.history.back();
+    // debugger
+    let closeAddForm = () => {
+        props.hideAddForm();
+    };
 
     const validationSchema = Yup.object({
         film_id: Yup.string().required("Required"),
@@ -39,7 +42,7 @@ const AddFilm = (props) => {
         // validateOnMount: true
     })
 
-    return (
+    return props.isAddFormShow && (
         <div className={style.root}>
             <div className={style.formWrapper}>
                 <form onSubmit={ formik.handleSubmit } onReset={ formik.handleReset }>
@@ -97,10 +100,12 @@ const AddFilm = (props) => {
 }
 
 let mapStateToProps = (state) => ({
-    options: state.films.genres
+    options: state.films.genres,
+    isAddFormShow: state.forms.isAddFormShow
 }) 
 
 let mapDispatchToProps = {
+    hideAddForm
 }
 
 const AddFilmContainer = compose(

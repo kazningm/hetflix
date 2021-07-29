@@ -9,7 +9,6 @@ export const withReqToAPI = (Component) => {
         let params = useParams();
         const genre = params.genre || ALL; 
         const search = params.search || "";
-
         let location = useLocation();
         let query = new URLSearchParams(location.search); 
         for (let k of query.keys()) query.delete(k);

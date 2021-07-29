@@ -15,14 +15,11 @@
 
 .actionList li {
     cursor: pointer;
-    transition-property: background-color, color;
-    transition-duration: 300ms;
-}
-
-.actionList li a {
     display: block;
     padding: 5px 15px;
     color: white;
+    transition-property: background-color, color;
+    transition-duration: 300ms;
 }
 
 .actionList li:nth-child(1) {

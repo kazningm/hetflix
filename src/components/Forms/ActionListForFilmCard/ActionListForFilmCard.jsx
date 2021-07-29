@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { hideActionList } from "./../../../reducers/action_list_reducer";
+import { showEditForm } from "./../../../reducers/forms_reducer";
 import PropTypes from "prop-types";
 import style from "./ActionListForFilmCard.module.css";
-import { NavLink } from "react-router-dom";
+
 
 const ActionListForFilmCard = (props) => {
     let filmInfo = props.filmInfo;
@@ -13,6 +14,10 @@ const ActionListForFilmCard = (props) => {
     let isActionListShow = props.isActionListShow;
 
     let hideActionList = props.hideActionList;
+
+    let openEditForm = () => {
+        props.showEditForm();
+    }
 
     const actionList = React.createRef();
 
@@ -26,17 +31,9 @@ const ActionListForFilmCard = (props) => {
 
     return isActionListShow && (
         <ul ref={actionList} className={style.actionList} onMouseLeave={ hideActionList }>
-            <li onClick={hideActionList}>&#10006;</li>
-            <li>
-                <NavLink to={`/edit/${filmInfo.id}`}>
-                    Edit
-                </NavLink>
-            </li>
-            <li>
-                <NavLink to={`/delete/${filmInfo.id}`}>
-                    Delete
-                </NavLink>
-            </li>
+            <li onClick={ hideActionList }>&#10006;</li>
+            <li onClick={ openEditForm }>Edit</li>
+            <li>Delete</li>
         </ul>
     )
 }
@@ -50,7 +47,8 @@ let mapStateToProps = (state) => ({
 })
 
 let mapDispatchToProps = {
-    hideActionList
+    hideActionList,
+    showEditForm
 }
 
 let ActionListForFilmCardContainer = compose(
