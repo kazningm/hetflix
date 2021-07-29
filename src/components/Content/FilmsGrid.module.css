@@ -7,3 +7,11 @@
     row-gap: 20px;
     column-gap: 20px;
 }
+
+.countFilms {
+    width: 90%;
+    margin: 0 auto;
+    color:  white;
+    font-size: 120%;
+    padding: 10px 0px 0px 0px;
+}

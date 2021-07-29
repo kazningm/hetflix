@@ -1,9 +1,5 @@
 import _ from "lodash";
 
-const ADD_FORM_SHOW = "ADD_FORM_SHOW";
-const ADD_FORM_HIDE = "ADD_FORM_HIDE";
-const EDIT_FORM_SHOW = "EDIT_FORM_SHOW";
-const EDIT_FORM_HIDE = "EDIT_FORM_HIDE";
 const DELETE_FILM_SHOW = "DELETE_FILM_SHOW";
 const DELETE_FILM_HIDE = "DELETE_FILM_HIDE";
 const LOGIN_SHOW = "LOGIN_SHOW";
@@ -15,8 +11,6 @@ const ERROR_ACTION_HIDE = "ERROR_ACTION_HIDE";
 const CHANGE_FILM_INFO = "CHANGE_FILM_INFO";
 
 const init_state = {
-    isAddFormShow: false,
-    isEditFormShow: false,
     filmInfo: {},
     isDeleteFilmShow: false,
     isLoginShow: false,
@@ -28,18 +22,6 @@ const forms_reducer = (state=init_state, action) => {
     let stateCopy = _.cloneDeep(state);
 
     switch (action.type) {
-        case ADD_FORM_SHOW:
-            stateCopy.isAddFormShow = true;
-            break;
-        case ADD_FORM_HIDE:
-            stateCopy.isAddFormShow = false;
-            break;
-        case EDIT_FORM_SHOW:
-            stateCopy.isEditFormShow = true;
-            break;
-        case EDIT_FORM_HIDE:
-            stateCopy.isEditFormShow = false;
-            break;
         case DELETE_FILM_SHOW:
             stateCopy.isDeleteFilmShow = true;
             break;
@@ -77,56 +59,6 @@ const forms_reducer = (state=init_state, action) => {
 export default forms_reducer;
 
 ///////////////////////// ACTIONS /////////////////////////////////////
-
-export let showAddForm = () => ({
-    type: ADD_FORM_SHOW
-}) 
-
-export let hideAddForm = () => ({
-    type: ADD_FORM_HIDE
-})
-
-export let openAddForm = () => {
-    return (dispatch) => {
-        dispatch(showAddForm());
-        dispatch(hideEditForm());
-        dispatch(hideDeleteFilm());
-        dispatch(hideLogin());
-        dispatch(hideSuccessAction());
-        dispatch(hideErrorAction());
-    }
-}
-
-export let closeAddForm = () => {
-    return (dispatch) => {
-        dispatch(hideAddForm());
-    }
-}
-
-export let showEditForm = () => ({
-    type: EDIT_FORM_SHOW
-}) 
-
-export let hideEditForm = () => ({
-    type: EDIT_FORM_HIDE
-})
-
-export let openEditForm = () => {
-    return (dispatch) => {
-        dispatch(showEditForm());
-        dispatch(hideAddForm());
-        dispatch(hideDeleteFilm());
-        dispatch(hideLogin());
-        dispatch(hideSuccessAction());
-        dispatch(hideErrorAction());
-    }
-}
-
-export let closeEditForm = () => {
-    return (dispatch) => {
-        dispatch(hideEditForm());
-    }
-}
 
 export let showDeleteFilm = () => ({
     type: DELETE_FILM_SHOW

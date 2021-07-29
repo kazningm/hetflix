@@ -3,15 +3,23 @@ import style from "./SortFilms.module.css";
 
 import { changeSort } from "./../../../reducers/films_reducer";
 import { connect } from "react-redux";
+import { useLocation } from "react-router";
 
 const SortFilms = (props) => {
+    
+    let location = useLocation();
+    let query = new URLSearchParams(location.search);
+
     let changeSort = (event) => {
-        props.changeSort(event.target.value)
+        props.changeSort(event.target.value);
+        for (let k of query.keys()) query.delete(k);
+        query.set("sort", event.target.value);
+        window.history.pushState(null,"", "?" + query.toString());
     }
     return (
         <>
             <label htmlFor="sort" className={ style.sortLabel } >SORT BY</label>
-            <select name="sort" id="" className={ style.sortSelect } onChange={ changeSort }>
+            <select name="sort" id="" className={ style.sortSelect } onChange={ changeSort } defaultValue={ props.sort }>
                 { props.sortList.map(s => <option value={ s } key={ s }> { s } </option>) }
             </select>
         </>
@@ -19,8 +27,8 @@ const SortFilms = (props) => {
 }
 
 let mapStateToProps = (state) => ({
-    // sortBy: state.films.SortBy,
-    sortList: state.films.sortList
+    sortList: state.films.sortList,
+    sort: state.films.sort
 })
 
 const ContainerSortFilms = connect(mapStateToProps, { changeSort })(SortFilms)

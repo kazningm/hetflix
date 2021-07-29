@@ -5,23 +5,27 @@ import { NavLink} from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { changeSearchValue, changeFilmsList, getFilms } from "./../../reducers/films_reducer";
-import { openAddForm } from "./../../reducers/forms_reducer";
 
 const SearchBlock = (props) => {  
+ 
+    const search_value = props.search_value;
+
     let changeSearchValue = (event) => {
         props.changeSearchValue(event.target.value);
     }
-
-    let openAddForm = props.openAddForm
 
     return (
         <div className={ style.rootWrapper }>
             <div className={ style.root }>
                 <div className={ style.addMovieDiv }>
-                    <NavLink to="/#">
+                    <NavLink to="/">
                         <img className={ style.logo } src={ logo } alt="" />
                     </NavLink>
-                    <div className={ style.addMovieButton } onClick={ openAddForm } >+ ADD MOVIE</div>
+                    <NavLink to="/add">
+                        <div className={ style.addMovieButton } >
+                            + ADD MOVIE                      
+                        </div>
+                    </NavLink>
                 </div>   
                 <div className={ style.searchDiv }>
                     <div className={ style.text }>FIND YOU MOVIE</div>
@@ -30,7 +34,7 @@ const SearchBlock = (props) => {
                                value={ props.search_value }
                                placeholder={ props.placeholder } 
                                onChange={ changeSearchValue } />
-                        <NavLink to={ `/search/${ props.search_value }` }>
+                        <NavLink to={ `/search/${search_value}` }>
                             <div className={ style.searchMovieButton } >SEARCH</div>
                         </NavLink>
                     </div>
@@ -43,14 +47,13 @@ const SearchBlock = (props) => {
 let mapStateToProps = (state) => ({ 
     search_value: state.films.search_value,
     placeholder: state.films.placeholder,
-    sortBy: state.films.sortBy
+    sort: state.films.sort
 })
 
 let mapDispatchToProps = {
     changeSearchValue,
     changeFilmsList,
-    getFilms,
-    openAddForm
+    getFilms
 }
 
 const SearchBlockContainer = compose(

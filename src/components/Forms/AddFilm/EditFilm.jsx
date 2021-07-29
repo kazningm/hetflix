@@ -10,7 +10,7 @@ import Select from "./FormControl/Select";
 
 const EditFilm = (props) => {
     let filmInfo = props.filmInfo;
-    let closeEditForm = props.closeEditForm;
+    let closeEditForm = () => window.history.back();
 
     const validationSchema = Yup.object({
         film_id: Yup.number().required("Required"),
@@ -39,7 +39,7 @@ const EditFilm = (props) => {
         enableReinitialize: true
     })
 
-    return props.isEditFormShow && (
+    return (
         <div className={style.root}>
             <div className={style.formWrapper}>
                 <form onSubmit={ formik.handleSubmit } onReset={ formik.handleReset }>
@@ -98,13 +98,11 @@ const EditFilm = (props) => {
 }
 
 let mapStateToProps = (state) => ({
-    isEditFormShow: state.forms.isEditFormShow,
     options: state.films.genres,
     filmInfo: state.forms.filmInfo
 }) 
 
 let mapDispatchToProps = {
-    closeEditForm
 }
 
 const EditFilmContainer = compose(

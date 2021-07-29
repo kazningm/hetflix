@@ -12,19 +12,19 @@ const Nav = (props) => {
         <nav>
             <ul className={style.headNav}>
                 <li>
-                    <NavLink to="/all" activeClassName={ style.active }>ALL</NavLink>
+                    <NavLink to="/genre/All" activeClassName={ style.active }>ALL</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/family" activeClassName={ style.active }>FAMILY</NavLink>
+                    <NavLink to="/genre/Family" activeClassName={ style.active }>FAMILY</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/action" activeClassName={ style.active }>ACTION</NavLink>
+                    <NavLink to="/genre/Action" activeClassName={ style.active }>ACTION</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/drama" activeClassName={ style.active }>DRAMA</NavLink>
+                    <NavLink to="/genre/Drama" activeClassName={ style.active }>DRAMA</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/crime" activeClassName={ style.active }>CRIME</NavLink>
+                    <NavLink to="/genre/Crime" activeClassName={ style.active }>CRIME</NavLink>
                 </li>
                 <li style={{ flexGrow: 10 }}></li>
                 <li style={{ paddingRight: 0 }}>

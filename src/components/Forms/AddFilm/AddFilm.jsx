@@ -4,13 +4,12 @@ import style from "./AddFilm.module.css";
 import { useFormik } from "formik";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { closeAddForm } from "../../../reducers/forms_reducer";
 import Input from "./FormControl/Input";
 import Select from "./FormControl/Select";
 
 const AddFilm = (props) => {
     
-    let closeAddForm = props.closeAddForm;
+    let closeAddForm =  () => window.history.back();
 
     const validationSchema = Yup.object({
         film_id: Yup.string().required("Required"),
@@ -40,7 +39,7 @@ const AddFilm = (props) => {
         // validateOnMount: true
     })
 
-    return props.isAddFormShow && (
+    return (
         <div className={style.root}>
             <div className={style.formWrapper}>
                 <form onSubmit={ formik.handleSubmit } onReset={ formik.handleReset }>
@@ -98,12 +97,10 @@ const AddFilm = (props) => {
 }
 
 let mapStateToProps = (state) => ({
-    isAddFormShow: state.forms.isAddFormShow,
     options: state.films.genres
 }) 
 
 let mapDispatchToProps = {
-    closeAddForm
 }
 
 const AddFilmContainer = compose(

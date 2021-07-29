@@ -1,7 +1,6 @@
 .actionList {
     background-color: #232323;
     display: none;
-    flex-direction: column;
     color:white;
     list-style-type: none;
     box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.3);
@@ -15,10 +14,15 @@
 }
 
 .actionList li {
-    padding: 5px 15px;
     cursor: pointer;
     transition-property: background-color, color;
     transition-duration: 300ms;
+}
+
+.actionList li a {
+    display: block;
+    padding: 5px 15px;
+    color: white;
 }
 
 .actionList li:nth-child(1) {
