@@ -18,6 +18,7 @@ const EditFilm = (props) => {
     const validationSchema = Yup.object({
         film_id: Yup.number().required("Required"),
         title: Yup.string().required("Required"),
+        rating: Yup.string().required("Required"),
         release_date: Yup.date().required("Required"),
         film_url: Yup.string().url(),
         genre: Yup.string().required("Required"),
@@ -29,6 +30,7 @@ const EditFilm = (props) => {
         initialValues: {
             film_id:  filmInfo.id,
             title: filmInfo.title,
+            rating: filmInfo.vote_average,
             release_date: filmInfo.release_date,
             film_url: filmInfo.poster_path,
             genre: "",
@@ -52,27 +54,27 @@ const EditFilm = (props) => {
                     <div className={style.actionText}>
                         EDIT MOVIE
                     </div>
-                    <Input label="FILM ID" id="film_id" type="text"
+
+                    <Input label="TITLE" id="title" type="text" placeholder="Moana"
+                           {...formik.getFieldProps("title")}  
+                           error={ formik.errors.title } 
+                           touched={ formik.touched.title } />
+
+                    <Input label="FILM ID" id="film_id" type="text" placeholder="1234"
                            {...formik.getFieldProps("film_id")} 
                            error={ formik.errors.film_id }
                            touched={ formik.touched.film_id } 
                            disabled={ true } />
 
-                    <Input label="TITLE" id="title" type="text"
-                           {...formik.getFieldProps("title")}  
-                           error={ formik.errors.title } 
-                           touched={ formik.touched.title } />
-
-                    <Input label="RELEASE DATE" id="release_date" type="date"
-                           {...formik.getFieldProps("release_date")} 
-                           error={ formik.errors.release_date }
-                           touched={ formik.touched.release_date }
-                           cls={ style.dateInput } /> 
-                    
-                    <Input label="FILM URL" id="film_url" type="text"
+                    <Input label="FILM URL" id="film_url" type="text" placeholder="http://"
                            {...formik.getFieldProps("film_url")} 
                            error={ formik.errors.film_url }
-                           touched={ formik.touched.film_url } /> 
+                           touched={ formik.touched.film_url } />
+                        
+                    <Input label="RATING" id="rating" type="text" placeholder="0.0"
+                           {...formik.getFieldProps("rating")}  
+                           error={ formik.errors.rating } 
+                           touched={ formik.touched.rating } />
 
                     <Select label="GENRE" id="genre"
                             {...formik.getFieldProps("genre")} 
@@ -80,12 +82,18 @@ const EditFilm = (props) => {
                             error={ formik.errors.genre }
                             touched={ formik.touched.genre } />
 
-                    <Input label="OVERVIEW" id="overview" type="text"
+                    <Input label="RELEASE DATE" id="release_date" type="date"
+                           {...formik.getFieldProps("release_date")} 
+                           error={ formik.errors.release_date }
+                           touched={ formik.touched.release_date }
+                           cls={ style.dateInput } />                     
+
+                    <Input label="OVERVIEW" id="overview" type="text" placeholder="About film..."
                            {...formik.getFieldProps("overview")} 
                            error={ formik.errors.overview } 
                            touched={ formik.touched.overview }/> 
 
-                    <Input label="RUNTIME" id="runtime" type="text"
+                    <Input label="RUNTIME" id="runtime" type="text" placeholder="120"
                            {...formik.getFieldProps("runtime")} 
                            error={ formik.errors.runtime } 
                            touched={ formik.touched.runtime }/> 

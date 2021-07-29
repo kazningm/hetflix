@@ -7,6 +7,7 @@ const Input = (props) => {
     let label = props.label;
     let id = props.id;
     let type = props.type;
+    let placeholder = props.placeholder;
     let onChange = props.onChange;
     let onBlur = props.onBlur;
     let value = props.value;
@@ -21,6 +22,7 @@ const Input = (props) => {
             <input type={ type }
                 id={ id }
                 name={ id }
+                placeholder={ placeholder }
                 onChange={ onChange }
                 onBlur={ onBlur }
                 value={ value }

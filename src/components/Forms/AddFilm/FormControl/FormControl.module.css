@@ -11,7 +11,6 @@
 .formControl {
     display: flex;
     flex-direction: column;
-    padding: 0px 40px 10px 40px;
 }
 
 .formControl input, .formControl select  {
