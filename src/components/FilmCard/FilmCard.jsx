@@ -5,9 +5,11 @@ import { openActionList } from "./../../reducers/action_list_reducer";
 import { changeFilmInfo } from "./../../reducers/forms_reducer";
 import PropTypes from "prop-types";
 import style from "./FilmCard.module.css";
+import { NavLink, useParams } from "react-router-dom";
 
 const FilmCard = (props) => {
     let filmInfo = props.filmInfo;
+    let id = filmInfo.id;
     let src = filmInfo.poster_path;
     let name = filmInfo.title;
     let date = filmInfo.release_date;
@@ -19,6 +21,7 @@ const FilmCard = (props) => {
     }
 
     return (
+        <NavLink to={`/film/${id}`}>
         <div className={ style.rootCard }>
             <div className={ style.Card }>
                 <img className={ style.filmImg } src={ src } alt="" />
@@ -30,6 +33,7 @@ const FilmCard = (props) => {
             </div>
             <div className={ style.filmGenre }>{ genres }</div>            
         </div>
+        </NavLink>
     );
 }
 

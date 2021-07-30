@@ -10,17 +10,21 @@ import store from "./store/store";
 import ActionListForFilmCard from "./components/Forms/ActionListForFilmCard/ActionListForFilmCard";
 import AddFilm from "./components/Forms/AddFilm/AddFilm";
 import EditFilm from "./components/Forms/AddFilm/EditFilm";
+import Footer from "./components/Footer/Footer";
+import FilmInfo from "./components/FilmInfo/FilmInfo";
 
 function App() {
   return (
     <>
       <Provider store={store}>
-        <BrowserRouter>
-          {/* <Route path="/" component={ SearchBlock } exact/>
+        <BrowserRouter>          
+          <Route path="/film/:id?" component={ FilmInfo } />
+          {/* <FilmInfo /> */}
+
+          <Route path="/" component={ SearchBlock } exact/>
           <Route path="/genre/:genre?" component={ SearchBlock } exact/>
           <Route path="/search/:search?" component={ SearchBlock } />
-          <Route path="/film/:film?" render={ () => <div>FilmInfo</div> } /> */}
-          <SearchBlock />
+          {/* <Route path="/film/:film?" render={ () => <div>FilmInfo</div> } /> */}
 
           {/* <Route path="/" component={ Nav } exact/>
           <Route path="/genre/:genre?" component={ Nav } exact/>
@@ -51,6 +55,7 @@ function App() {
           {/* <footer>
             футер
           </footer> */}
+          <Footer />
         </BrowserRouter>
       </Provider>
     </>
