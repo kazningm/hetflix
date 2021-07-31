@@ -1,18 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import style from "./FilmInfo.module.css";
-import loupe from "./../../loupe.svg";
-import logo from "./../../logo.png";
-import { ReactSVG } from "react-svg";
-import { NavLink, useParams } from "react-router-dom";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import axios from "axios";
 import { changeFilmInfoView, hideFilmInfoView } from "../../reducers/films_reducer";
 
 const FilmInfo = (props) => {
-
-    const params = useParams();
-    let id = params.id;
 
     let filmInfo = props.filmInfoView;
 
@@ -20,32 +12,12 @@ const FilmInfo = (props) => {
         props.hideFilmInfoView();
     }
 
-    useEffect(() => {
-        if (id) {
-            axios.get(`http://localhost:4000/movies/${id}`).then(data => {
-                props.changeFilmInfo(data.data)
-            })
-        }
-    }, [id])
-
     return props.isFilmInfoShow && (
         <div className={style.root}>
             <div className={style.filmInfoWrapper}>
                 <div className={ style.closeDiv } onClick={ closeFilmInfoView }>
                     &#10006;
                 </div>
-                {/* <div className={style.searchDiv}>
-                    <div className={style.home}>
-                        <NavLink to="/">
-                            <img src={logo} alt="" />
-                        </NavLink>
-                    </div>
-                    <div className={style.search}>
-                        <NavLink to="/search">
-                            <ReactSVG src={loupe} />
-                        </NavLink>
-                    </div>
-                </div> */}
                 <div className={ style.filmInfoDiv }>
                     <div className={ style.poster }>
                         <img src={ filmInfo.poster_path } alt="" />

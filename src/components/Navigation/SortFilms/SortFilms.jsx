@@ -3,8 +3,6 @@ import style from "./SortFilms.module.css";
 
 import { changeSort } from "./../../../reducers/films_reducer";
 import { connect } from "react-redux";
-import { useLocation } from "react-router";
-import { useRouteMatch } from "react-router-dom";
 
 const useQuery = () => {
     return new URLSearchParams(window.location.search)
