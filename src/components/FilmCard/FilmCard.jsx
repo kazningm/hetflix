@@ -2,10 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { openActionList } from "./../../reducers/action_list_reducer";
-import { changeFilmInfo } from "./../../reducers/forms_reducer";
+import { changeFilmInfoEdit, changeFilmInfoView, showFilmInfoView } from "./../../reducers/films_reducer";
 import PropTypes from "prop-types";
 import style from "./FilmCard.module.css";
-import { NavLink, useParams } from "react-router-dom";
 
 const FilmCard = (props) => {
     let filmInfo = props.filmInfo;
@@ -16,13 +15,17 @@ const FilmCard = (props) => {
     let genres = filmInfo.genres.join(", ");
 
     let openActionList = (event) => {
-        props.changeFilmInfo(filmInfo);
+        props.changeFilmInfoEdit(filmInfo);
         props.openActionList(event.pageY, event.pageX);        
     }
 
+    let openFilmInfoView = (event) => {
+        props.changeFilmInfoView(filmInfo);
+        props.showFilmInfoView();        
+    }
+
     return (
-        <NavLink to={`/film/${id}`}>
-        <div className={ style.rootCard }>
+        <div className={ style.rootCard } onClick={ openFilmInfoView }>
             <div className={ style.Card }>
                 <img className={ style.filmImg } src={ src } alt="" />
                 <div className={ style.threeDots } onClick={ openActionList } >&#8942;</div>
@@ -33,16 +36,20 @@ const FilmCard = (props) => {
             </div>
             <div className={ style.filmGenre }>{ genres }</div>            
         </div>
-        </NavLink>
     );
 }
 
-let mapStateToProps = (state) => ({
+let mapStateToProps = (state) => ({})
 
-})
+let mapDispatchToProps = { 
+    openActionList, 
+    changeFilmInfoEdit, 
+    changeFilmInfoView,
+    showFilmInfoView 
+}
 
 const FilmCardContainer = compose(
-    connect(mapStateToProps, { openActionList, changeFilmInfo })
+    connect(mapStateToProps, mapDispatchToProps)
 )(FilmCard);
 
 export default FilmCardContainer;

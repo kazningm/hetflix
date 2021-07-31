@@ -32,7 +32,8 @@ const SortFilms = (props) => {
 
 let mapStateToProps = (state) => ({
     sortList: state.films.sortList,
-    sort: state.films.sort
+    sort: state.films.sort,
+    filmsList: state.films.filmsList
 })
 
 const ContainerSortFilms = connect(mapStateToProps, { changeSort })(SortFilms)

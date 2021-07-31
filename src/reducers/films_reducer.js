@@ -14,7 +14,11 @@ const SHOW_ERROR = "SHOW_ERROR";
 const HIDE_ERROR = "HIDE_ERROR"; 
 
 const CHANGE_SORT = "CHANGE_SORT";
-const CHANGE_FILM_INFO = "CHANGE_FILM_INFO";
+const CHANGE_FILM_INFO_FOR_EDIT = "CHANGE_FILM_INFO_FOR_EDIT";
+const CHANGE_FILM_INFO_FOR_VIEW = "CHANGE_FILM_INFO_FOR_VIEW";
+
+const SHOW_FILM_INFO = "SHOW_FILM_INFO";
+const HIDE_FILM_INFO = "HIDE_FILM_INFO";
 
 export const NOT_SORTED = "NOT_SORTED";
 export const RELEASE_DATA = "RELEASE_DATA";
@@ -39,7 +43,9 @@ const init_state = {
     sortList: [NOT_SORTED, RELEASE_DATA, RATING],
     sort: NOT_SORTED,
     filmsList: [],
-    filmInfo: {}
+    isFilmInfoShow: false,
+    filmInfoEdit: {}, // for taking info for edit form
+    filmInfoView: {} // for writing info about film
 }
 
 const films_reducer = (state=init_state, action) => {
@@ -73,8 +79,17 @@ const films_reducer = (state=init_state, action) => {
         case CHANGE_SEARCH_VALUE:
             stateCopy.search_value = action.value;
             break;
-        case CHANGE_FILM_INFO:
-            stateCopy.filmInfo = action.filmInfo;
+        case CHANGE_FILM_INFO_FOR_EDIT:
+            stateCopy.filmInfoEdit = action.filmInfo;
+            break;
+        case CHANGE_FILM_INFO_FOR_VIEW:
+            stateCopy.filmInfoView = action.filmInfo;
+            break;
+        case SHOW_FILM_INFO:
+            stateCopy.isFilmInfoShow = true;
+            break;
+        case HIDE_FILM_INFO:
+            stateCopy.isFilmInfoShow = false;
             break;
         default:
             return stateCopy;
@@ -168,9 +183,21 @@ export let changeSearchValue = (value) => ({
     value
 })
 
-export let changeFilmInfo = (filmInfo) => ({
-    type: CHANGE_FILM_INFO,
+export let changeFilmInfoEdit = (filmInfo) => ({
+    type: CHANGE_FILM_INFO_FOR_EDIT,
     filmInfo
 })
 
+export let changeFilmInfoView = (filmInfo) => ({
+    type: CHANGE_FILM_INFO_FOR_VIEW,
+    filmInfo
+})
+
+export let showFilmInfoView = () => ({
+    type: SHOW_FILM_INFO
+})
+
+export let hideFilmInfoView = () => ({
+    type: HIDE_FILM_INFO
+})
 

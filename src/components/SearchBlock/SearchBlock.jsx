@@ -12,7 +12,6 @@ const SearchBlock = (props) => {
     const search_value = props.search_value;
 
     let changeSearchValue = (event) => {
-        console.log(event.target.value)
         props.changeSearchValue(event.target.value);
     }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import style from "./FilmInfo.module.css";
 import loupe from "./../../loupe.svg";
 import logo from "./../../logo.png";
@@ -7,16 +7,18 @@ import { NavLink, useParams } from "react-router-dom";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import axios from "axios";
-import { changeFilmInfo } from "../../reducers/films_reducer";
+import { changeFilmInfoView, hideFilmInfoView } from "../../reducers/films_reducer";
 
 const FilmInfo = (props) => {
 
     const params = useParams();
     let id = params.id;
-    console.log(id)
 
-    // let [filmInfo, changeFilmInfo] = useState({});
-    let filmInfo = props.filmInfo;
+    let filmInfo = props.filmInfoView;
+
+    let closeFilmInfoView = () => {
+        props.hideFilmInfoView();
+    }
 
     useEffect(() => {
         if (id) {
@@ -26,10 +28,13 @@ const FilmInfo = (props) => {
         }
     }, [id])
 
-    return (
+    return props.isFilmInfoShow && (
         <div className={style.root}>
             <div className={style.filmInfoWrapper}>
-                <div className={style.searchDiv}>
+                <div className={ style.closeDiv } onClick={ closeFilmInfoView }>
+                    &#10006;
+                </div>
+                {/* <div className={style.searchDiv}>
                     <div className={style.home}>
                         <NavLink to="/">
                             <img src={logo} alt="" />
@@ -40,7 +45,7 @@ const FilmInfo = (props) => {
                             <ReactSVG src={loupe} />
                         </NavLink>
                     </div>
-                </div>
+                </div> */}
                 <div className={ style.filmInfoDiv }>
                     <div className={ style.poster }>
                         <img src={ filmInfo.poster_path } alt="" />
@@ -68,11 +73,12 @@ const FilmInfo = (props) => {
 }
 
 let mapStateToProps = (state) => ({
-    filmInfo: state.films.filmInfo
+    filmInfoView: state.films.filmInfoView,
+    isFilmInfoShow: state.films.isFilmInfoShow
 })
 
 const FilmInfoContainer = compose(
-    connect(mapStateToProps, { changeFilmInfo })
+    connect(mapStateToProps, { changeFilmInfoView, hideFilmInfoView })
 )(FilmInfo)
 
 export default FilmInfoContainer;

@@ -8,7 +8,7 @@ import style from "./ActionListForFilmCard.module.css";
 
 
 const ActionListForFilmCard = (props) => {
-    let filmInfo = props.filmInfo;
+    let filmInfo = props.filmInfoEdit;
     let top = props.top - 10; // -10 чтобы курсор был внутри ActionListForFilmCard
     let left = props.left - 10;
     let isActionListShow = props.isActionListShow;
@@ -43,7 +43,7 @@ let mapStateToProps = (state) => ({
     film_id: state.action_list.film_id,
     top: state.action_list.top,
     left: state.action_list.left,
-    filmInfo: state.forms.filmInfo
+    filmInfoEdit: state.forms.filmInfoEdit
 })
 
 let mapDispatchToProps = {

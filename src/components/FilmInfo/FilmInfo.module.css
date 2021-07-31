@@ -1,21 +1,36 @@
 .root {
     color: white;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.6);
+    display: flex;
+}
+
+.closeDiv {
+    text-align: right;
+    color: white;
+    transition-property: color;
+    transition-duration: 300ms;
+}
+
+.closeDiv:hover {
+    color: #F65261;
+    cursor: pointer;
 }
 
 .filmInfoWrapper {
-    width: 90%;
+    align-self: center;
+    background-color: #232323;
+    border-radius: 5px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    padding: 20px 0;
-}
-
-.searchDiv {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    /* margin-top: 10px; */
+    padding: 20px;
+    width: 70%;
+    min-width: 600px;
 }
 
 .home img {
@@ -33,11 +48,8 @@
 .filmInfoDiv {
     display: grid;
     grid-template-columns: 1fr 3fr;
-    /* row-gap: 20px; */
     column-gap: 50px;
     align-items: center;
-    margin: 30px auto 0 auto;
-    width: 95%;
 }
 
 .poster img {
@@ -52,7 +64,7 @@
 }
 
 .info {
-    min-width: 400px;
+    min-width: 300px;
     flex-grow: 4;
 }
 

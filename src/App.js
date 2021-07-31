@@ -17,29 +17,17 @@ function App() {
   return (
     <>
       <Provider store={store}>
-        <BrowserRouter>          
-          <Route path="/film/:id?" component={ FilmInfo } />
-          {/* <FilmInfo /> */}
-
-          <Route path="/" component={ SearchBlock } exact/>
-          <Route path="/genre/:genre?" component={ SearchBlock } exact/>
-          <Route path="/search/:search?" component={ SearchBlock } />
-          {/* <Route path="/film/:film?" render={ () => <div>FilmInfo</div> } /> */}
-
-          {/* <Route path="/" component={ Nav } exact/>
-          <Route path="/genre/:genre?" component={ Nav } exact/>
-          <Route path="/search/:search?" component={ Nav } />
-          <Route path="/film/:film?" component={ Nav } /> */}
+        <BrowserRouter> 
+          {/* //////////////// MAIN BLOCK ///////////////*/}
+          <SearchBlock />
           <Nav />
-
-          <Route path="/" component={ MainContent } exact/>
-          <Route path="/genre/:genre?" component={ MainContent } exact/>
-          <Route path="/film" component={ MainContent } />
-          <Route path="/search/:search?" component={ MainContent } />
-
+          <MainContent />
+          {/* //////////////// FORMS ///////////////*/}
           <AddFilm />
           <EditFilm />
+          <FilmInfo />
 
+          {/* //////////////// OTHER ///////////////*/}
           <ActionListForFilmCard />
           <Loader />
 
@@ -55,6 +43,7 @@ function App() {
           {/* <footer>
             футер
           </footer> */}
+          {/* //////////////// FOOTER ///////////////*/}
           <Footer />
         </BrowserRouter>
       </Provider>
