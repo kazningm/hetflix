@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import Input from "./FormControl/Input";
-import Select from "./FormControl/Select";
+import MultiSelect from "./FormControl/MultiSelect";
 import { hideAddForm } from "./../../../reducers/forms_reducer";
 
 const AddFilm = (props) => {
@@ -20,7 +20,7 @@ const AddFilm = (props) => {
         rating: Yup.string().required("Required"),
         release_date: Yup.date().required("Required"),
         film_url: Yup.string().url(),
-        genre: Yup.string().required("Required"),
+        genre: Yup.array().required("Required"),
         overview: Yup.string().required("Required"),
         runtime: Yup.number().moreThan(0).required("Required")
     });
@@ -32,7 +32,7 @@ const AddFilm = (props) => {
             rating: "",
             release_date: "",
             film_url: "",
-            genre: "",
+            genre: [],
             overview: "",
             runtime: ""
         },
@@ -75,7 +75,7 @@ const AddFilm = (props) => {
                            error={ formik.errors.rating }
                            touched={ formik.touched.rating } /> 
 
-                    <Select label="GENRE" id="genre"
+                    <MultiSelect label="GENRE" id="genre"
                            { ...formik.getFieldProps("genre") } 
                             options={ props.options } 
                             error={ formik.errors.genre }

@@ -6,7 +6,7 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { hideEditForm } from "../../../reducers/forms_reducer";
 import Input from "./FormControl/Input";
-import Select from "./FormControl/Select";
+import MultiSelect from "./FormControl/MultiSelect";
 
 const EditFilm = (props) => {
     let filmInfo = props.filmInfo;
@@ -21,7 +21,7 @@ const EditFilm = (props) => {
         rating: Yup.string().required("Required"),
         release_date: Yup.date().required("Required"),
         film_url: Yup.string().url(),
-        genre: Yup.string().required("Required"),
+        genre: Yup.array().required("Required"),
         overview: Yup.string().required("Required"),
         runtime: Yup.number().moreThan(0).required("Required")
     });
@@ -33,7 +33,7 @@ const EditFilm = (props) => {
             rating: filmInfo.vote_average,
             release_date: filmInfo.release_date,
             film_url: filmInfo.poster_path,
-            genre: "",
+            genre: filmInfo.genres,
             overview: filmInfo.overview,
             runtime: filmInfo.runtime
         },
@@ -76,7 +76,7 @@ const EditFilm = (props) => {
                            error={ formik.errors.rating } 
                            touched={ formik.touched.rating } />
 
-                    <Select label="GENRE" id="genre"
+                    <MultiSelect label="GENRE" id="genre"
                             {...formik.getFieldProps("genre")} 
                             options={ props.options } 
                             error={ formik.errors.genre }
