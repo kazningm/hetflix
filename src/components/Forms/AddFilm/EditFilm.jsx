@@ -9,7 +9,7 @@ import Input from "./FormControl/Input";
 import MultiSelect from "./FormControl/MultiSelect";
 
 const EditFilm = (props) => {
-    let filmInfo = props.filmInfo;
+    let filmInfo = props.filmInfoEdit;
     
     let closeEditForm = () => {
         props.hideEditForm();
@@ -110,7 +110,7 @@ const EditFilm = (props) => {
 
 let mapStateToProps = (state) => ({
     options: state.films.genres,
-    filmInfo: state.forms.filmInfo,
+    filmInfoEdit: state.films.filmInfoEdit,
     isEditFormShow: state.forms.isEditFormShow
 }) 
 

@@ -8,7 +8,6 @@ import style from "./ActionListForFilmCard.module.css";
 
 
 const ActionListForFilmCard = (props) => {
-    let filmInfo = props.filmInfoEdit;
     let top = props.top - 10; // -10 чтобы курсор был внутри ActionListForFilmCard
     let left = props.left - 10;
     let isActionListShow = props.isActionListShow;
@@ -27,7 +26,7 @@ const ActionListForFilmCard = (props) => {
             actionList.current.style.left = `${left}px`;
             actionList.current.style.display = "block";
         }
-    }, [top, left, isActionListShow, filmInfo]);
+    }, [top, left, isActionListShow]);
 
     return isActionListShow && (
         <ul ref={actionList} className={style.actionList} onMouseLeave={ hideActionList }>

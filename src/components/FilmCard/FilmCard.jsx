@@ -15,6 +15,7 @@ const FilmCard = (props) => {
     let genres = filmInfo.genres.join(", ");
 
     let openActionList = (event) => {
+        event.stopPropagation();
         props.changeFilmInfoEdit(filmInfo);
         props.openActionList(event.pageY, event.pageX);        
     }
