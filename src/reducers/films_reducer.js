@@ -14,6 +14,7 @@ const SHOW_ERROR = "SHOW_ERROR";
 const HIDE_ERROR = "HIDE_ERROR"; 
 
 const CHANGE_SORT = "CHANGE_SORT";
+const CHANGE_FILM_INFO = "CHANGE_FILM_INFO";
 
 export const NOT_SORTED = "NOT_SORTED";
 export const RELEASE_DATA = "RELEASE_DATA";
@@ -37,7 +38,8 @@ const init_state = {
     isErrorShow: false,
     sortList: [NOT_SORTED, RELEASE_DATA, RATING],
     sort: NOT_SORTED,
-    filmsList: []
+    filmsList: [],
+    filmInfo: {}
 }
 
 const films_reducer = (state=init_state, action) => {
@@ -70,6 +72,9 @@ const films_reducer = (state=init_state, action) => {
             break;
         case CHANGE_SEARCH_VALUE:
             stateCopy.search_value = action.value;
+            break;
+        case CHANGE_FILM_INFO:
+            stateCopy.filmInfo = action.filmInfo;
             break;
         default:
             return stateCopy;
@@ -162,4 +167,10 @@ export let changeSearchValue = (value) => ({
     type: CHANGE_SEARCH_VALUE,
     value
 })
+
+export let changeFilmInfo = (filmInfo) => ({
+    type: CHANGE_FILM_INFO,
+    filmInfo
+})
+
 

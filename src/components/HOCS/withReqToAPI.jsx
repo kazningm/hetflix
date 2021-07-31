@@ -19,7 +19,7 @@ export const withReqToAPI = (Component) => {
         const filmsList = useState(props.filmsList)[0];
         useEffect(() => {
             props.getFilms(genre, sort, search)      
-        }, [params, filmsList, genre, sort, search])
+        }, [filmsList, genre, sort, search])
 
         return (
             <Component {...props} />

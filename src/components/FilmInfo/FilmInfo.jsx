@@ -7,19 +7,24 @@ import { NavLink, useParams } from "react-router-dom";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import axios from "axios";
+import { changeFilmInfo } from "../../reducers/films_reducer";
 
 const FilmInfo = (props) => {
 
     const params = useParams();
-    let id = params.id || 0;
+    let id = params.id;
+    console.log(id)
 
-    let [filmInfo, changeFilmInfo] = useState({});
+    // let [filmInfo, changeFilmInfo] = useState({});
+    let filmInfo = props.filmInfo;
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/movies/${id}`).then(data => {
-            changeFilmInfo(data.data)
-        })
-    }, [filmInfo])
+        if (id) {
+            axios.get(`http://localhost:4000/movies/${id}`).then(data => {
+                props.changeFilmInfo(data.data)
+            })
+        }
+    }, [id])
 
     return (
         <div className={style.root}>
@@ -62,4 +67,12 @@ const FilmInfo = (props) => {
     )
 }
 
-export default FilmInfo;
+let mapStateToProps = (state) => ({
+    filmInfo: state.films.filmInfo
+})
+
+const FilmInfoContainer = compose(
+    connect(mapStateToProps, { changeFilmInfo })
+)(FilmInfo)
+
+export default FilmInfoContainer;

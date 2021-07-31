@@ -15,7 +15,7 @@ const ActionListForFilmCard = (props) => {
 
     let hideActionList = props.hideActionList;
 
-    let openEditForm = () => {
+    let openEditForm = (event) => {
         props.showEditForm();
     }
 

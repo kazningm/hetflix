@@ -17,7 +17,7 @@ const FilmCard = (props) => {
 
     let openActionList = (event) => {
         props.changeFilmInfo(filmInfo);
-        props.openActionList(event.pageY, event.pageX);
+        props.openActionList(event.pageY, event.pageX);        
     }
 
     return (
