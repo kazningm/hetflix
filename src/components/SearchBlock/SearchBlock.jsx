@@ -25,6 +25,10 @@ const SearchBlock = (props) => {
         props.changeSearchValue(search_value); 
     }
 
+    let startToSearchByEnter = (event) => {
+        if (event.keyCode === 0) startToSearch();
+    }
+
     let openAddForm = () => {
         props.showAddForm();
     }
@@ -46,7 +50,8 @@ const SearchBlock = (props) => {
                         <input className={style.customInput} type="text"
                             value={props.search_value}
                             placeholder={props.placeholder}
-                            onChange={changeSearchValue} />
+                            onChange={changeSearchValue} 
+                            onKeyPress={ startToSearchByEnter } />
                         <div className={style.searchMovieButton} onClick={ startToSearch }>SEARCH</div>
                     </div>
                 </div>
