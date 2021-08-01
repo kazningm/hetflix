@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _, { sortBy } from "lodash";
 import axios from "axios";
 
 const CHANGE_SEARCH_VALUE = "CHANGE_SEARCH_VALUE";
@@ -20,9 +20,10 @@ const CHANGE_FILM_INFO_FOR_VIEW = "CHANGE_FILM_INFO_FOR_VIEW";
 const SHOW_FILM_INFO = "SHOW_FILM_INFO";
 const HIDE_FILM_INFO = "HIDE_FILM_INFO";
 
-export const NOT_SORTED = "NOT_SORTED";
-export const RELEASE_DATA = "RELEASE_DATA";
-export const RATING = "RATING";
+export const NOT_SORTED = "-";
+export const RELEASE_DATA = "realease_date";
+export const VOTE_AVERAGE = "vote_average";
+export const BUDGET = "budget";
 
 export const ALL = "All";
 export const ACTION = "Action";
@@ -40,7 +41,7 @@ const init_state = {
     isLoaderShow: false,
     isFilmsShow: true,
     isErrorShow: false,
-    sortList: [NOT_SORTED, RELEASE_DATA, RATING],
+    sortList: [NOT_SORTED, RELEASE_DATA, VOTE_AVERAGE, BUDGET],
     sort: NOT_SORTED,
     filmsList: [],
     isFilmInfoShow: false,
@@ -102,7 +103,7 @@ export default films_reducer;
 let sortFilms = (arr, sort) => {
     if (sort === RELEASE_DATA) {
         return _.sortBy(arr, (film) => film.release_date).reverse()
-    } else if (sort === RATING) {
+    } else if (sort === VOTE_AVERAGE) {
         return _.sortBy(arr, (film) => film.vote_average).reverse()
     } 
     return arr;
@@ -144,7 +145,27 @@ export let getFilms = (genre=ALL, sort=NOT_SORTED, search) => {
         dispatch(hideError());
         dispatch(hideFilms());
         dispatch(showLoader());
-        axios.get("http://localhost:4000/movies")
+
+        let params = {
+            sortBy: sort === NOT_SORTED ? null : sort,
+            filter: genre === ALL ? null : genre
+        };
+        
+        if (search === "") {
+            params.filter = genre === ALL ? null : genre;
+            params.offset = 1;
+            params.limit = 20;
+        } else {
+            params.searchBy = "title";
+            params.search = search;
+        }
+        // let params = {
+        //     sortBy: sort,
+        //     searchBy: "title",
+        //     search: search,
+        //     filter: genre
+        // };
+        axios.get("http://localhost:4000/movies", {params})
             .then(data => {
                 let films = sortFilms(data.data.data, sort);
                 if (genre !== ALL)

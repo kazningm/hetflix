@@ -93,12 +93,12 @@
     background-color: rgba(246, 82, 97,0.8);
     transition-property: background-color;
     transition-duration: 300ms;
+    cursor: pointer;
 }
 
 .searchMovieButton:hover {
     background-color: rgba(246, 82, 97, 1);
 }
-
 
 .inputDiv > a {
     flex-grow: 2;

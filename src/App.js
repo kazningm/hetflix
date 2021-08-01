@@ -21,7 +21,7 @@ function App() {
           {/* //////////////// MAIN BLOCK ///////////////*/}
           <SearchBlock />
           <Nav />
-          <MainContent />
+          <Route path="/genre/:genre"  render={() => <MainContent />} />
           {/* //////////////// FORMS ///////////////*/}
           <AddFilm />
           <EditFilm />

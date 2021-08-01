@@ -1,22 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import style from "./SortFilms.module.css";
 
 import { changeSort } from "./../../../reducers/films_reducer";
 import { connect } from "react-redux";
 
-const useQuery = () => {
-    return new URLSearchParams(window.location.search)
-}
+const useQuery = () => new URLSearchParams(window.location.search)
 
 const SortFilms = (props) => {
-    
+
     let query = useQuery();
 
     let changeSort = (event) => {
-        props.changeSort(event.target.value);
-        for (let k of query.keys()) query.delete(k);
-        query.set("sort", event.target.value);
-        window.history.pushState(null,"", "?" + query.toString());
+        let sort = event.target.value;
+        props.changeSort(sort);
+        if (sort !== "-") query.set("sort", sort);
+        else query.delete("sort");
+        window.history.pushState(null, "", "?" + query.toString());
     }
     return (
         <>
@@ -31,7 +30,8 @@ const SortFilms = (props) => {
 let mapStateToProps = (state) => ({
     sortList: state.films.sortList,
     sort: state.films.sort,
-    filmsList: state.films.filmsList
+    filmsList: state.films.filmsList,
+    search_value: state.films.search_value
 })
 
 const ContainerSortFilms = connect(mapStateToProps, { changeSort })(SortFilms)

@@ -7,12 +7,22 @@ import { compose } from "redux";
 import { changeSearchValue, changeFilmsList, getFilms } from "./../../reducers/films_reducer";
 import { showAddForm } from "./../../reducers/forms_reducer";
 
+const useQuery = () => new URLSearchParams(window.location.search);
+
 const SearchBlock = (props) => {
 
     const search_value = props.search_value;
+    let query = useQuery();
 
     let changeSearchValue = (event) => {
-        props.changeSearchValue(event.target.value);
+        props.changeSearchValue(event.target.value); 
+    }
+
+    let startToSearch = () => {
+        if (search_value) query.set("search", search_value);
+        else query.delete("search");
+        window.history.pushState("", null, "?" + query.toString())
+        props.changeSearchValue(search_value); 
     }
 
     let openAddForm = () => {
@@ -37,9 +47,7 @@ const SearchBlock = (props) => {
                             value={props.search_value}
                             placeholder={props.placeholder}
                             onChange={changeSearchValue} />
-                        <NavLink to={`/search/${search_value}`}>
-                            <div className={style.searchMovieButton} >SEARCH</div>
-                        </NavLink>
+                        <div className={style.searchMovieButton} onClick={ startToSearch }>SEARCH</div>
                     </div>
                 </div>
             </div>

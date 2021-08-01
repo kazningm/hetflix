@@ -35,6 +35,10 @@ const Nav = (props) => {
     );
 }
 
+let mapStateToProps = (state) => ({
+    filmsList: state.films.filmsList
+})
+
 const NavContainer = compose(
     withRouter,
     connect(null, { changeFilmsList })
