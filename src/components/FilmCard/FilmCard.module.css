@@ -2,18 +2,18 @@
     position: relative;
     width: 300px;
     margin: 0 auto;
+    transition-property: box-shadow;
+    transition-duration: 300ms;
+}
+
+.rootCard:hover {
+    cursor: pointer;    
+    box-shadow: 0px 0px 5px 3px rgb(246, 82, 97);
 }
 
 .Card {
     height: 400px;
     box-shadow: 1px 1px 3px 1px rgba(0,0,0,0.3);
-    transition-property: box-shadow;
-    transition-duration: 300ms;
-}
-
-.Card:hover {
-    cursor: pointer;    
-    box-shadow: 0px 0px 3px 1px rgb(246, 82, 97);
 }
 
 
