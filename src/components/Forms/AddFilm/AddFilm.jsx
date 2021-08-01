@@ -6,10 +6,10 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import Input from "./FormControl/Input";
 import MultiSelect from "./FormControl/MultiSelect";
+import Textarea from "./FormControl/Textarea";
 import { hideAddForm } from "./../../../reducers/forms_reducer";
 
 const AddFilm = (props) => {
-    // debugger
     let closeAddForm = () => {
         props.hideAddForm();
     };
@@ -55,25 +55,31 @@ const AddFilm = (props) => {
                         ADD MOVIE
                     </div>
 
+                    {/* <Input label="FILM ID" id="film_id" type="text" placeholder="1234"
+                           { ...formik.getFieldProps("film_id") } 
+                           error={ formik.errors.film_id }
+                           touched={ formik.touched.film_id } /> */}
+
                     <Input label="TITLE" id="title" type="text" placeholder="Moana"
                            { ...formik.getFieldProps("title") } 
                            error={ formik.errors.title } 
                            touched={ formik.touched.title } />
-
-                    <Input label="FILM ID" id="film_id" type="text" placeholder="1234"
-                           { ...formik.getFieldProps("film_id") } 
-                           error={ formik.errors.film_id }
-                           touched={ formik.touched.film_id } />
+                    
+                    <Input label="RATING" id="rating" type="text" placeholder="0.0"
+                           { ...formik.getFieldProps("rating") } 
+                           error={ formik.errors.rating }
+                           touched={ formik.touched.rating } /> 
 
                     <Input label="FILM URL" id="film_url" type="text" placeholder="http://"
                            { ...formik.getFieldProps("film_url") } 
                            error={ formik.errors.film_url }
                            touched={ formik.touched.film_url } /> 
 
-                    <Input label="RATING" id="rating" type="text" placeholder="0.0"
-                           { ...formik.getFieldProps("rating") } 
-                           error={ formik.errors.rating }
-                           touched={ formik.touched.rating } /> 
+                    <Input label="RELEASE DATE" id="release_date" type="date"
+                           { ...formik.getFieldProps("release_date") } 
+                           error={ formik.errors.release_date }
+                           touched={ formik.touched.release_date }
+                           cls={ style.dateInput } />                      
 
                     <MultiSelect label="GENRE" id="genre"
                            { ...formik.getFieldProps("genre") } 
@@ -81,21 +87,17 @@ const AddFilm = (props) => {
                             error={ formik.errors.genre }
                             touched={ formik.touched.genre } />
 
-                    <Input label="RELEASE DATE" id="release_date" type="date"
-                           { ...formik.getFieldProps("release_date") } 
-                           error={ formik.errors.release_date }
-                           touched={ formik.touched.release_date }
-                           cls={ style.dateInput } />                
-
-                    <Input label="OVERVIEW" id="overview" type="text" placeholder="About film..."
-                           { ...formik.getFieldProps("overview") } 
-                           error={ formik.errors.overview } 
-                           touched={ formik.touched.overview }/> 
-
                     <Input label="RUNTIME" id="runtime" type="text" placeholder="120"
                            { ...formik.getFieldProps("runtime") } 
                            error={ formik.errors.runtime } 
                            touched={ formik.touched.runtime }/> 
+                    
+                    <div className={ style.textareaBlock } >
+                    <Textarea label="OVERVIEW" id="overview" type="text" placeholder="About film..."
+                           {...formik.getFieldProps("overview")} 
+                           error={ formik.errors.overview } 
+                           touched={ formik.touched.overview }/>
+                    </div>
 
                     <div className={style.buttonsDiv}>
                         <button className={style.reset} type="reset">RESET</button>

@@ -13,7 +13,7 @@
     flex-direction: column;
 }
 
-.formControl input, .formControl select  {
+.formControl input, .formControl select, .formControl textarea  {
     font-family: sans-serif;
     letter-spacing: 1pt;
     padding-left: 10px;
@@ -25,9 +25,14 @@
     transition-property: background-color;
     transition-duration: 300ms;    
     appearance: none;
+    resize: none;
 }
 
-.formControl input:focus, .formControl select:focus {
+.formControl textarea {
+    height: 60px !important;
+}
+
+.formControl input:focus, .formControl select:focus, .formControl textarea:focus {
     outline: 0;
     background-color: #555555;
 }
@@ -37,12 +42,14 @@
 }
 
 .formControl select:not(:disabled):hover, 
+.formControl textarea:not(:disabled):hover,
 .dateInput:not(:disabled):hover {
     cursor: pointer;
     background-color: #555555;
 }
 
-.formControl input:not(:disabled):hover {
+.formControl input:not(:disabled):hover,
+.formControl textarea:not(:disabled):hover {
     background-color: #555555;
 }
 

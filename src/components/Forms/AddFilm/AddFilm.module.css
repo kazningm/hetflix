@@ -59,6 +59,10 @@
     grid-column: 1/3;
 }
 
+.textareaBlock {
+    grid-column: 1/3;
+}
+
 
 .reset, .save {
     height: 40px;
