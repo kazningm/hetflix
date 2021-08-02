@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import Input from "./FormControl/Input";
 import MultiSelect from "./FormControl/MultiSelect";
 import Textarea from "./FormControl/Textarea";
-import { hideAddForm } from "./../../../reducers/forms_reducer";
+import { hideAddForm, addFilm } from "./../../../reducers/forms_reducer";
 
 const AddFilm = (props) => {
     let closeAddForm = () => {
@@ -15,30 +15,32 @@ const AddFilm = (props) => {
     };
 
     const validationSchema = Yup.object({
-        film_id: Yup.string().required("Required"),
         title: Yup.string().required("Required"),
-        rating: Yup.string().required("Required"),
+        vote_average: Yup.number().min(0).required("Required"),
         release_date: Yup.date().required("Required"),
-        film_url: Yup.string().url(),
-        genre: Yup.array().required("Required"),
+        poster_path: Yup.string().url().required("Required"),
+        genres: Yup.array().required("Required"),
         overview: Yup.string().required("Required"),
         runtime: Yup.number().moreThan(0).required("Required")
     });
 
     const formik = useFormik({
         initialValues: {
-            film_id:  "",
             title: "",
-            rating: "",
+            vote_average: "",
             release_date: "",
-            film_url: "",
-            genre: [],
+            poster_path: "",
+            genres: [],
             overview: "",
             runtime: ""
         },
         onSubmit (values, onSubmitForms) {
+            props.addFilm(values);
             onSubmitForms.resetForm();        
-        },      
+        },  
+        onReset (values) {
+            // console.log(values);
+        },
         validationSchema,
         enableReinitialize: true,
         // validateOnMount: true
@@ -65,15 +67,15 @@ const AddFilm = (props) => {
                            error={ formik.errors.title } 
                            touched={ formik.touched.title } />
                     
-                    <Input label="RATING" id="rating" type="text" placeholder="0.0"
-                           { ...formik.getFieldProps("rating") } 
-                           error={ formik.errors.rating }
-                           touched={ formik.touched.rating } /> 
+                    <Input label="VOTE AVERAGE" id="vote_average" type="text" placeholder="0.0"
+                           { ...formik.getFieldProps("vote_average") } 
+                           error={ formik.errors.vote_average }
+                           touched={ formik.touched.vote_average } /> 
 
-                    <Input label="FILM URL" id="film_url" type="text" placeholder="http://"
-                           { ...formik.getFieldProps("film_url") } 
-                           error={ formik.errors.film_url }
-                           touched={ formik.touched.film_url } /> 
+                    <Input label="POSTER PATH" id="poster_path" type="text" placeholder="http://"
+                           { ...formik.getFieldProps("poster_path") } 
+                           error={ formik.errors.poster_path }
+                           touched={ formik.touched.poster_path } /> 
 
                     <Input label="RELEASE DATE" id="release_date" type="date"
                            { ...formik.getFieldProps("release_date") } 
@@ -81,11 +83,11 @@ const AddFilm = (props) => {
                            touched={ formik.touched.release_date }
                            cls={ style.dateInput } />                      
 
-                    <MultiSelect label="GENRE" id="genre"
-                           { ...formik.getFieldProps("genre") } 
+                    <MultiSelect label="GENRES" id="genres"
+                           { ...formik.getFieldProps("genres") } 
                             options={ props.options } 
-                            error={ formik.errors.genre }
-                            touched={ formik.touched.genre } />
+                            error={ formik.errors.genres }
+                            touched={ formik.touched.genres } />
 
                     <Input label="RUNTIME" id="runtime" type="text" placeholder="120"
                            { ...formik.getFieldProps("runtime") } 
@@ -115,7 +117,8 @@ let mapStateToProps = (state) => ({
 }) 
 
 let mapDispatchToProps = {
-    hideAddForm
+    hideAddForm,
+    addFilm
 }
 
 const AddFilmContainer = compose(

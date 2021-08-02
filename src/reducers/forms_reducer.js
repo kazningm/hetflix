@@ -1,3 +1,4 @@
+import axios from "axios";
 import _ from "lodash";
 
 const ADD_FORM_SHOW = "ADD_FORM_SHOW";
@@ -22,10 +23,11 @@ const init_state = {
     isDeleteActionShow: false,
     isLoginShow: false,
     isSuccessActionShow: false,
-    isErrorActionShow: false
+    isErrorActionShow: false,
+    error_message: "Something went wrong"
 }
 
-const forms_reducer = (state=init_state, action) => {
+const forms_reducer = (state = init_state, action) => {
     let stateCopy = _.cloneDeep(state);
 
     switch (action.type) {
@@ -119,8 +121,9 @@ export let hideSuccessAction = () => ({
     type: SUCCESS_ACTION_HIDE
 })
 
-export let showErrorAction = () => ({
-    type: ERROR_ACTION_SHOW
+export let showErrorAction = (error_message) => ({
+    type: ERROR_ACTION_SHOW,
+    error_message
 })
 
 export let hideErrorAction = () => ({
@@ -131,3 +134,61 @@ export let changeFilmInfo = (filmInfo) => ({
     type: CHANGE_FILM_INFO,
     filmInfo
 })
+
+export let addFilm = (filmInfo) => {
+    return (dispatch) => {
+        let data = {
+            ...filmInfo,
+            vote_average: Number(filmInfo.vote_average),
+            runtime: Number(filmInfo.runtime),
+            vote_count: 0,
+            budget: 0,
+            revenue: 0
+        }
+        axios.post("http://localhost:4000/movies", data)
+            .then(response => {
+                if (response.status === 200 || response.status === 201) {
+                    dispatch(hideAddForm());
+                    dispatch(showSuccessAction());
+                } else if (response.status === 404) {
+                    return Promise.reject(response.messages.join("\n"));
+                } else {
+                    return Promise.reject("Something went wrong");
+                }
+            })
+            .catch(error => {
+                dispatch(hideAddForm());
+                dispatch(showErrorAction("Something went wrong"));
+            })
+    }
+}
+
+export let editFilm = (filmInfo) => {
+    return (dispatch) => {
+        let data = {
+            ...filmInfo,
+            vote_average: Number(filmInfo.vote_average),
+            runtime: Number(filmInfo.runtime),
+            vote_count: Number(filmInfo.vote_count),
+            budget: Number(filmInfo.budget),
+            revenue: Number(filmInfo.revenue),
+        }
+        axios.put("http://localhost:4000/movies", data)
+            .then(response => {
+                if (response.status === 200 || response.status === 201) {
+                    dispatch(hideEditForm());
+                    dispatch(showSuccessAction());
+                } else if (response.status === 400) {
+                    return Promise.reject("Validation error");
+                } else if (response.status === 404) {
+                    return Promise.reject(response.messages.join("\n"));
+                } else {
+                    return Promise.reject("Something went wrong");
+                }
+            })
+            .catch(error => {
+                dispatch(hideEditForm());
+                dispatch(showErrorAction(error));
+            })
+    }
+}

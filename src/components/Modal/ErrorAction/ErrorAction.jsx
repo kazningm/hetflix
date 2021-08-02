@@ -5,7 +5,6 @@ import { hideErrorAction } from "./../../../reducers/forms_reducer";
 import style from "./ErrorAction.module.css";
 
 const ErrorAction = (props) => {
-
     let hideErrorAction = props.hideErrorAction;
 
     return props.isErrorActionShow && (
@@ -14,7 +13,7 @@ const ErrorAction = (props) => {
                 <div className={ style.close } onClick={ hideErrorAction }>&#10006;</div>
                 <div className={ style.icon }>&#10006;</div>
                 <div className={ style.congrat }>ERROR</div>
-                <div>Something went wrong</div>
+                <div> { props.error_message } </div>
             </div>
         </div>
     )
@@ -22,7 +21,8 @@ const ErrorAction = (props) => {
 
 
 let mapStateToProps = (state) => ({
-    isErrorActionShow: state.forms.isErrorActionShow
+    isErrorActionShow: state.forms.isErrorActionShow,
+    error_message: state.forms.error_message
 })
 
 const ErrorActionContainer = compose(

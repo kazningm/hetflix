@@ -4,7 +4,7 @@ import style from "./AddFilm.module.css";
 import { useFormik } from "formik";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { hideEditForm } from "../../../reducers/forms_reducer";
+import { hideEditForm, editFilm } from "../../../reducers/forms_reducer";
 import Input from "./FormControl/Input";
 import MultiSelect from "./FormControl/MultiSelect";
 import Textarea from "./FormControl/Textarea";
@@ -17,29 +17,29 @@ const EditFilm = (props) => {
     };
 
     const validationSchema = Yup.object({
-        film_id: Yup.number().required("Required"),
+        id: Yup.number().required("Required"),
         title: Yup.string().required("Required"),
-        rating: Yup.string().required("Required"),
+        vote_average: Yup.string().required("Required"),
         release_date: Yup.date().required("Required"),
-        film_url: Yup.string().url(),
-        genre: Yup.array().required("Required"),
+        poster_path: Yup.string().url().required("Required"),
+        genres: Yup.array().required("Required"),
         overview: Yup.string().required("Required"),
         runtime: Yup.number().moreThan(0).required("Required")
     });
 
     const formik = useFormik({
         initialValues: {
-            film_id:  filmInfo.id,
+            id:  filmInfo.id,
             title: filmInfo.title,
-            rating: filmInfo.vote_average,
+            vote_average: filmInfo.vote_average,
             release_date: filmInfo.release_date,
-            film_url: filmInfo.poster_path,
-            genre: filmInfo.genres,
+            poster_path: filmInfo.poster_path,
+            genres: filmInfo.genres,
             overview: filmInfo.overview,
             runtime: filmInfo.runtime
         },
         onSubmit (values, onSubmitForms) {
-            onSubmitForms.resetForm();        
+            props.editFilm({...filmInfo, ...values});
         },
         validationSchema,
         enableReinitialize: true
@@ -67,15 +67,15 @@ const EditFilm = (props) => {
                            error={ formik.errors.title } 
                            touched={ formik.touched.title } />
 
-                    <Input label="RATING" id="rating" type="text" placeholder="0.0"
-                           {...formik.getFieldProps("rating")}  
-                           error={ formik.errors.rating } 
-                           touched={ formik.touched.rating } />                    
+                    <Input label="VOTE AVERAGE" id="vote_average" type="text" placeholder="0.0"
+                           {...formik.getFieldProps("vote_average")}  
+                           error={ formik.errors.vote_average } 
+                           touched={ formik.touched.vote_average } />                    
 
-                    <Input label="FILM URL" id="film_url" type="text" placeholder="http://"
-                           {...formik.getFieldProps("film_url")} 
-                           error={ formik.errors.film_url }
-                           touched={ formik.touched.film_url } />
+                    <Input label="POSTER PATH" id="poster_path" type="text" placeholder="http://"
+                           {...formik.getFieldProps("poster_path")} 
+                           error={ formik.errors.poster_path }
+                           touched={ formik.touched.poster_path } />
                     
                     <Input label="RELEASE DATE" id="release_date" type="date"
                            {...formik.getFieldProps("release_date")} 
@@ -83,11 +83,11 @@ const EditFilm = (props) => {
                            touched={ formik.touched.release_date }
                            cls={ style.dateInput } />                    
 
-                    <MultiSelect label="GENRE" id="genre"
-                            {...formik.getFieldProps("genre")} 
+                    <MultiSelect label="GENRES" id="genres"
+                            {...formik.getFieldProps("genres")} 
                             options={ props.options } 
-                            error={ formik.errors.genre }
-                            touched={ formik.touched.genre } />
+                            error={ formik.errors.genres }
+                            touched={ formik.touched.genres } />
 
                     <Input label="RUNTIME" id="runtime" type="text" placeholder="120"
                            {...formik.getFieldProps("runtime")} 
@@ -118,7 +118,8 @@ let mapStateToProps = (state) => ({
 }) 
 
 let mapDispatchToProps = {
-    hideEditForm
+    hideEditForm,
+    editFilm
 }
 
 const EditFilmContainer = compose(
