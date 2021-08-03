@@ -39,7 +39,9 @@ let mapStateToProps = (state) => ({
     sort: state.films.sort,
     isFilmsShow: state.films.isFilmsShow,
     isErrorShow: state.films.isErrorShow,
-    countDeletedFilms: state.films.countDeletedFilms
+    countDeletedFilms: state.films.countDeletedFilms,
+    countAddedFilms: state.films.countAddedFilms,
+    countEditedFilms: state.films.countEditedFilms
 })
 
 let mapDispatchToProps = {

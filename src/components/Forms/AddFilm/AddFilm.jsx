@@ -16,7 +16,7 @@ const AddFilm = (props) => {
 
     const validationSchema = Yup.object({
         title: Yup.string().required("Required"),
-        vote_average: Yup.number().min(0).required("Required"),
+        vote_average: Yup.number().min(0).max(10).required("Required"),
         release_date: Yup.date().required("Required"),
         poster_path: Yup.string().url().required("Required"),
         genres: Yup.array().required("Required"),

@@ -12,6 +12,7 @@
 }
 
 .formWrapper {
+    width: 45%;
     min-width: 300px;
     align-self: center;
 }

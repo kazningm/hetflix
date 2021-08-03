@@ -1,6 +1,6 @@
 import axios from "axios";
 import _ from "lodash";
-import { setCountDeletedFilms } from "./films_reducer";
+import { setCountDeletedFilms, setCountAddedFilms, setCountEditedFilms } from "./films_reducer";
 
 const ADD_FORM_SHOW = "ADD_FORM_SHOW";
 const ADD_FORM_HIDE = "ADD_FORM_HIDE";
@@ -187,6 +187,7 @@ export let addFilm = (filmInfo) => {
         axios.post("http://localhost:4000/movies", data)
             .then(response => {
                 if (response.status === 200 || response.status === 201) {
+                    dispatch(setCountAddedFilms());
                     dispatch(hideAddForm());
                     dispatch(showSuccessAction());
                 } else if (response.status === 404) {
@@ -215,6 +216,7 @@ export let editFilm = (filmInfo) => {
         axios.put("http://localhost:4000/movies", data)
             .then(response => {
                 if (response.status === 200 || response.status === 201) {
+                    dispatch(setCountEditedFilms());
                     dispatch(hideEditForm());
                     dispatch(showSuccessAction());
                 } else if (response.status === 400) {

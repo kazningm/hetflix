@@ -8,6 +8,8 @@ export const withReqToAPI = (Component) => {
     const NewComponent = (props) => {
         
         let countDeletedFilms = props.countDeletedFilms;
+        let countAddedFilms = props.countAddedFilms;
+        let countEditedFilms = props.countEditedFilms;
 
         let query = useQuery();
 

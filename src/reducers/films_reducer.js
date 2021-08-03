@@ -25,6 +25,8 @@ const CHANGE_GENRE = "CHANGE_GENRE";
 const CHANGE_FILM_INFO_FOR_VIEW = "CHANGE_FILM_INFO_FOR_VIEW";
 
 const SET_COUNT_DELETED_FILMS = "SET_COUNT_DELETED_FILMS";
+const SET_COUNT_ADDED_FILMS = "SET_COUNT_ADDED_FILMS";
+const SET_COUNT_EDITED_FILMS = "SET_COUNT_EDIT_FILMS";
 
 export const NOT_SORTED = "-";
 export const RELEASE_DATA = "release_date";
@@ -54,7 +56,9 @@ const init_state = {
     offset: 0,
     isFilmInfoShow: false,
     filmInfoView: {}, // for writing info about film
-    countDeletedFilms: 0
+    countDeletedFilms: 0,
+    countAddedFilms: 0,
+    countEditedFilms: 0
 }
 
 const films_reducer = (state = init_state, action) => {
@@ -106,6 +110,12 @@ const films_reducer = (state = init_state, action) => {
             break;
         case SET_COUNT_DELETED_FILMS:
             stateCopy.countDeletedFilms += 1;
+            break;
+        case SET_COUNT_ADDED_FILMS:
+            stateCopy.countAddedFilms += 1;
+            break;
+        case SET_COUNT_EDITED_FILMS:
+            stateCopy.countEditedFilms += 1;
             break;
         default:
             return stateCopy;
@@ -183,6 +193,14 @@ export let setCountDeletedFilms = () => ({
     type: SET_COUNT_DELETED_FILMS
 })
 
+export let setCountAddedFilms = () => ({
+    type: SET_COUNT_ADDED_FILMS
+})
+
+export let setCountEditedFilms = () => ({
+    type: SET_COUNT_EDITED_FILMS
+})
+
 export let getFilms = (genre = ALL, sort = NOT_SORTED, search = "", offset = 1) => {
     return (dispatch) => {
         dispatch(hideError());
@@ -191,6 +209,7 @@ export let getFilms = (genre = ALL, sort = NOT_SORTED, search = "", offset = 1) 
 
         let params = {
             sortBy: sort === NOT_SORTED ? null : sort,
+            sortOrder: "desc",
             filter: genre === ALL ? null : genre,
             limit: 10,
             offset: offset*10
@@ -202,6 +221,7 @@ export let getFilms = (genre = ALL, sort = NOT_SORTED, search = "", offset = 1) 
             params.searchBy = "title";
             params.search = search;
         }
+        console.log(params)
         axios.get("http://localhost:4000/movies", { params })
             .then(response => {
                 let films = response.data.data;
