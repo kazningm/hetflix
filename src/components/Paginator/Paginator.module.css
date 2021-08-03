@@ -1,0 +1,29 @@
+
+.pagginateDiv {
+    color: white;
+    display: flex;
+    font-size: 120%;
+    column-gap: 5px;
+    justify-content: center;
+    margin: 40px 0 55px 0;
+}
+
+.pagginateDiv div {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.begin, .left, .right {    
+    background-color: rgba(246, 82, 97,0.8);
+    box-shadow: 1 1 3px 1px rgba(0,0,0,0.6);
+    transition-property: background-color;
+    transition-duration: 300ms;
+}
+
+.begin:hover, .left:hover, .right:hover {    
+    background-color: rgba(246, 82, 97, 1);
+    cursor: pointer;
+}
+
