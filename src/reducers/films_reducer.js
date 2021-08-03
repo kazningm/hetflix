@@ -1,27 +1,31 @@
-import _, { sortBy } from "lodash";
+import _ from "lodash";
 import axios from "axios";
 
 const CHANGE_SEARCH_VALUE = "CHANGE_SEARCH_VALUE";
 
 const CHANGE_FILMS_LIST = "CHANGE_FILMS_LIST";
 const SHOW_LOADER = "SHOW_LOADER";
-const HIDE_LOADER = "HIDE_LOADER";  
+const HIDE_LOADER = "HIDE_LOADER";
 
 const SHOW_FILMS = "SHOW_FILMS";
-const HIDE_FILMS = "HIDE_FILMS"; 
+const HIDE_FILMS = "HIDE_FILMS";
 
 const SHOW_ERROR = "SHOW_ERROR";
-const HIDE_ERROR = "HIDE_ERROR"; 
+const HIDE_ERROR = "HIDE_ERROR";
 
 const CHANGE_SORT = "CHANGE_SORT";
-const CHANGE_FILM_INFO_FOR_EDIT = "CHANGE_FILM_INFO_FOR_EDIT";
-const CHANGE_FILM_INFO_FOR_VIEW = "CHANGE_FILM_INFO_FOR_VIEW";
 
 const SHOW_FILM_INFO = "SHOW_FILM_INFO";
 const HIDE_FILM_INFO = "HIDE_FILM_INFO";
 
+const CHANGE_OFFSET = "CHANGE_OFFSET";
+
+const CHANGE_GENRE = "CHANGE_GENRE";
+
+const CHANGE_FILM_INFO_FOR_VIEW = "CHANGE_FILM_INFO_FOR_VIEW";
+
 export const NOT_SORTED = "-";
-export const RELEASE_DATA = "realease_date";
+export const RELEASE_DATA = "release_date";
 export const VOTE_AVERAGE = "vote_average";
 export const BUDGET = "budget";
 
@@ -37,6 +41,7 @@ export const FANTASY = "Fantasy";
 const init_state = {
     search_value: "",
     genres: [ACTION, CRIME, DOCUMENTARY, HORROR, COMEDY, FANTASY],
+    genre: ALL,
     placeholder: "What do you want to watch?",
     isLoaderShow: false,
     isFilmsShow: true,
@@ -44,16 +49,16 @@ const init_state = {
     sortList: [NOT_SORTED, RELEASE_DATA, VOTE_AVERAGE, BUDGET],
     sort: NOT_SORTED,
     filmsList: [],
+    offset: 1,
     isFilmInfoShow: false,
-    filmInfoEdit: {}, // for taking info for edit form
     filmInfoView: {} // for writing info about film
 }
 
-const films_reducer = (state=init_state, action) => {
+const films_reducer = (state = init_state, action) => {
     let stateCopy = _.cloneDeep(state);
 
     switch (action.type) {
-        case  CHANGE_FILMS_LIST:
+        case CHANGE_FILMS_LIST:
             stateCopy.filmsList = [...action.data];
             break;
         case SHOW_LOADER:
@@ -80,17 +85,21 @@ const films_reducer = (state=init_state, action) => {
         case CHANGE_SEARCH_VALUE:
             stateCopy.search_value = action.value;
             break;
-        case CHANGE_FILM_INFO_FOR_EDIT:
-            stateCopy.filmInfoEdit = action.filmInfo;
-            break;
-        case CHANGE_FILM_INFO_FOR_VIEW:
-            stateCopy.filmInfoView = action.filmInfo;
-            break;
         case SHOW_FILM_INFO:
             stateCopy.isFilmInfoShow = true;
             break;
         case HIDE_FILM_INFO:
             stateCopy.isFilmInfoShow = false;
+            break;
+        case CHANGE_OFFSET:
+            stateCopy.offset = action.offset;
+            break;
+        case CHANGE_GENRE:
+            stateCopy.genre = action.genre;
+            stateCopy.offset = 1;
+            break;
+        case CHANGE_FILM_INFO_FOR_VIEW:
+            stateCopy.filmInfoView = action.filmInfo;
             break;
         default:
             return stateCopy;
@@ -99,15 +108,6 @@ const films_reducer = (state=init_state, action) => {
 }
 
 export default films_reducer;
-
-let sortFilms = (arr, sort) => {
-    if (sort === RELEASE_DATA) {
-        return _.sortBy(arr, (film) => film.release_date).reverse()
-    } else if (sort === VOTE_AVERAGE) {
-        return _.sortBy(arr, (film) => film.vote_average).reverse()
-    } 
-    return arr;
-}
 
 // ACTIONS //////////////////////////////////////////////////
 
@@ -140,73 +140,14 @@ export let changeFilmsList = (data) => ({
     data
 })
 
-export let getFilms = (genre=ALL, sort=NOT_SORTED, search) => {
-    return (dispatch) => {
-        dispatch(hideError());
-        dispatch(hideFilms());
-        dispatch(showLoader());
-
-        let params = {
-            sortBy: sort === NOT_SORTED ? null : sort,
-            filter: genre === ALL ? null : genre
-        };
-        
-        if (search === "") {
-            params.filter = genre === ALL ? null : genre;
-            params.offset = 1;
-            params.limit = 20;
-        } else {
-            params.searchBy = "title";
-            params.search = search;
-        }
-        // let params = {
-        //     sortBy: sort,
-        //     searchBy: "title",
-        //     search: search,
-        //     filter: genre
-        // };
-        axios.get("http://localhost:4000/movies", {params})
-            .then(data => {
-                let films = sortFilms(data.data.data, sort);
-                if (genre !== ALL)
-                    dispatch(changeFilmsList(films.filter(film => _.includes(film.genres, genre))));
-                else if (genre === ALL && search) 
-                    dispatch(changeFilmsList(films.filter(film => { 
-                                        let t = film.title.toLowerCase()
-                                        let s = search.toLowerCase()
-                                        return t.indexOf(s) !== -1
-                                    })));
-                else dispatch(changeFilmsList(films));
-            })
-            .then(() => { 
-                dispatch(hideError());
-                dispatch(hideLoader()); 
-                dispatch(showFilms());
-            })
-            .catch(err => {
-                dispatch(hideLoader());
-                dispatch(hideFilms());
-                dispatch(showError())
-                // обернуть FilmsGrid в ErrorBoundary
-                console.error(err);
-                throw err;
-            })        
-    }
-}
-
-export let changeSort = (sort) => ({ 
-    type: CHANGE_SORT, 
-    sort 
+export let changeSort = (sort) => ({
+    type: CHANGE_SORT,
+    sort
 })
 
 export let changeSearchValue = (value) => ({
     type: CHANGE_SEARCH_VALUE,
     value
-})
-
-export let changeFilmInfoEdit = (filmInfo) => ({
-    type: CHANGE_FILM_INFO_FOR_EDIT,
-    filmInfo
 })
 
 export let changeFilmInfoView = (filmInfo) => ({
@@ -221,4 +162,54 @@ export let showFilmInfoView = () => ({
 export let hideFilmInfoView = () => ({
     type: HIDE_FILM_INFO
 })
+
+export let changeOffset = (offset) => ({
+    type: CHANGE_OFFSET,
+    offset
+})
+
+export let changeGenre = (genre) => ({
+    type: CHANGE_GENRE,
+    genre
+})
+
+export let getFilms = (genre = ALL, sort = NOT_SORTED, search = "", offset = 1) => {
+    return (dispatch) => {
+        dispatch(hideError());
+        dispatch(hideFilms());
+        dispatch(showLoader());
+
+        let params = {
+            sortBy: sort === NOT_SORTED ? null : sort,
+            filter: genre === ALL ? null : genre,
+            limit: 4,
+            offset
+        };
+
+        if (search === "") {
+            params.filter = genre === ALL ? null : genre;
+        } else {
+            params.searchBy = "title";
+            params.search = search;
+        }
+        axios.get("http://localhost:4000/movies", { params })
+            .then(response => {
+                let films = response.data.data;
+                dispatch(changeFilmsList(films))
+            })
+            .then(() => {
+                dispatch(hideError());
+                dispatch(hideLoader());
+                dispatch(showFilms());
+            })
+            .catch(err => {
+                dispatch(hideLoader());
+                dispatch(hideFilms());
+                dispatch(showError())
+                // обернуть FilmsGrid в ErrorBoundary
+                console.error(err);
+                throw err;
+            })
+    }
+}
 

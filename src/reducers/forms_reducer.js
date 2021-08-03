@@ -16,6 +16,8 @@ const ERROR_ACTION_SHOW = "ERROR_ACTION_SHOW";
 const ERROR_ACTION_HIDE = "ERROR_ACTION_HIDE";
 const CHANGE_FILM_INFO = "CHANGE_FILM_INFO";
 
+const CHANGE_FILM_INFO_FOR_EDIT = "CHANGE_FILM_INFO_FOR_EDIT";
+
 const init_state = {
     isAddFormShow: false,
     isEditFormShow: false,
@@ -24,7 +26,8 @@ const init_state = {
     isLoginShow: false,
     isSuccessActionShow: false,
     isErrorActionShow: false,
-    error_message: "Something went wrong"
+    error_message: "Something went wrong",
+    filmInfoEdit: {}, // for taking info for edit form
 }
 
 const forms_reducer = (state = init_state, action) => {
@@ -69,6 +72,9 @@ const forms_reducer = (state = init_state, action) => {
             break;
         case CHANGE_FILM_INFO:
             stateCopy.filmInfo = action.filmInfo;
+            break;
+        case CHANGE_FILM_INFO_FOR_EDIT:
+            stateCopy.filmInfoEdit = action.filmInfo;
             break;
         default:
             return stateCopy;
@@ -134,6 +140,22 @@ export let changeFilmInfo = (filmInfo) => ({
     type: CHANGE_FILM_INFO,
     filmInfo
 })
+
+export let changeFilmInfoEdit = (filmInfo) => ({
+    type: CHANGE_FILM_INFO_FOR_EDIT,
+    filmInfo
+})
+
+export let getFilm = (id) => {
+    return (dispatch) => {
+        axios.get(`http://localhost:4000/movies/${id}`)
+            .then(response => {
+                if (response.status === 200) {
+                    dispatch(changeFilmInfoEdit(response.data))
+                } 
+            })
+    }
+}
 
 export let addFilm = (filmInfo) => {
     return (dispatch) => {

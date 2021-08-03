@@ -2,7 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { openActionList } from "./../../reducers/action_list_reducer";
-import { changeFilmInfoEdit, changeFilmInfoView, showFilmInfoView } from "./../../reducers/films_reducer";
+import { changeFilmInfoView, showFilmInfoView } from "./../../reducers/films_reducer";
+import { changeFilmInfoEdit } from "./../../reducers/forms_reducer";
+import { changeFilmId } from "./../../reducers/action_list_reducer";
 import PropTypes from "prop-types";
 import style from "./FilmCard.module.css";
 
@@ -16,7 +18,7 @@ const FilmCard = (props) => {
 
     let openActionList = (event) => {
         event.stopPropagation();
-        props.changeFilmInfoEdit(filmInfo);
+        props.changeFilmId(id);
         props.openActionList(event.pageY, event.pageX);        
     }
 
@@ -46,7 +48,8 @@ let mapDispatchToProps = {
     openActionList, 
     changeFilmInfoEdit, 
     changeFilmInfoView,
-    showFilmInfoView 
+    showFilmInfoView ,
+    changeFilmId
 }
 
 const FilmCardContainer = compose(

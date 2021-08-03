@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as Yup from "yup";
 import style from "./AddFilm.module.css";
 import { useFormik } from "formik";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { hideEditForm, editFilm } from "../../../reducers/forms_reducer";
+import { hideEditForm, editFilm, getFilm } from "../../../reducers/forms_reducer";
 import Input from "./FormControl/Input";
 import MultiSelect from "./FormControl/MultiSelect";
 import Textarea from "./FormControl/Textarea";
 
 const EditFilm = (props) => {
     let filmInfo = props.filmInfoEdit;
+
+    useEffect(() => {
+        props.getFilm(props.film_id)
+    }, [props.film_id])
     
     let closeEditForm = () => {
         props.hideEditForm();
@@ -112,14 +116,16 @@ const EditFilm = (props) => {
 }
 
 let mapStateToProps = (state) => ({
+    film_id: state.action_list.film_id,
     options: state.films.genres,
-    filmInfoEdit: state.films.filmInfoEdit,
+    filmInfoEdit: state.forms.filmInfoEdit,
     isEditFormShow: state.forms.isEditFormShow
 }) 
 
 let mapDispatchToProps = {
     hideEditForm,
-    editFilm
+    editFilm,
+    getFilm
 }
 
 const EditFilmContainer = compose(

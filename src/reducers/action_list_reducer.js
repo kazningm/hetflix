@@ -7,7 +7,7 @@ const HIDE_ACTION_LIST = "CLOSE_ACTION_LIST";
 
 const init_state = {
     isActionListShow: false,
-    film_id: 0,
+    film_id: 272,
     top: 0,
     left: 0
 }
@@ -34,19 +34,6 @@ const action_list_reducer = (state=init_state, action) => {
     }
 
     return stateCopy;
-
-    // if (action.type === CHANGE_PLACE) {
-    //     stateCopy.top = action.top;
-    //     stateCopy.left = action.left;
-    // } else if (action.type === CHANGE_FILM_ID) {
-    //     stateCopy.film_id = action.film_id;
-    // } else if (action.type === SHOW_ACTION_LIST) {
-    //     stateCopy.isActionListShow = true;
-    // } else if (action.type === HIDE_ACTION_LIST) {
-    //     stateCopy.isActionListShow = false;
-    // }
-
-    // return stateCopy;
 }
 
 export default action_list_reducer;
