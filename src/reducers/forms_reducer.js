@@ -1,5 +1,6 @@
 import axios from "axios";
 import _ from "lodash";
+import { setCountDeletedFilms } from "./films_reducer";
 
 const ADD_FORM_SHOW = "ADD_FORM_SHOW";
 const ADD_FORM_HIDE = "ADD_FORM_HIDE";
@@ -153,6 +154,22 @@ export let getFilm = (id) => {
                 if (response.status === 200) {
                     dispatch(changeFilmInfoEdit(response.data))
                 } 
+            })
+    }
+}
+
+export let deleteFilm = (id) => {
+    return (dispatch) => {
+        axios.delete(`http://localhost:4000/movies/${id}`)
+            .then(response => {
+                console.log(response.status);
+                if (response.status === 204) {
+                    dispatch(setCountDeletedFilms());
+                    dispatch(showSuccessAction());
+                }
+            })
+            .catch(error => {                
+                dispatch(showErrorAction("Something went wrong"));
             })
     }
 }

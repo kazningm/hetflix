@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { hideActionList } from "./../../../reducers/action_list_reducer";
-import { showEditForm } from "./../../../reducers/forms_reducer";
+import { showEditForm, deleteFilm } from "./../../../reducers/forms_reducer";
+import { setCountDeletedFilms } from "./../../../reducers/films_reducer";
 import PropTypes from "prop-types";
 import style from "./ActionListForFilmCard.module.css";
-
 
 const ActionListForFilmCard = (props) => {
     let top = props.top - 10; // -10 чтобы курсор был внутри ActionListForFilmCard
@@ -16,6 +16,13 @@ const ActionListForFilmCard = (props) => {
 
     let openEditForm = (event) => {
         props.showEditForm();
+    }
+
+    let deleteFilm = () => {
+        let answer = window.confirm("Are you sure you want to delete this film?");
+        if (answer) {
+            props.deleteFilm(props.film_id);
+        }
     }
 
     const actionList = React.createRef();
@@ -32,7 +39,7 @@ const ActionListForFilmCard = (props) => {
         <ul ref={actionList} className={style.actionList} onMouseLeave={ hideActionList }>
             <li onClick={ hideActionList }>&#10006;</li>
             <li onClick={ openEditForm }>Edit</li>
-            <li>Delete</li>
+            <li onClick={ deleteFilm }>Delete</li>
         </ul>
     )
 }
@@ -47,7 +54,9 @@ let mapStateToProps = (state) => ({
 
 let mapDispatchToProps = {
     hideActionList,
-    showEditForm
+    showEditForm,
+    deleteFilm,
+    setCountDeletedFilms
 }
 
 let ActionListForFilmCardContainer = compose(

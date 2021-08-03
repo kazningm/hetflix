@@ -1,13 +1,14 @@
 import style from "./FilmsGrid.module.css";
 import FilmCard from "../FilmCard/FilmCard";
 import { connect } from "react-redux";
-import { changeFilmsList, getFilms, changeSort } from "./../../reducers/films_reducer";
+import { changeFilmsList, getFilms, changeSort, changeGenre } from "./../../reducers/films_reducer";
 import { compose } from "redux";
 import { withRouter } from "react-router-dom";
 import { withReqToAPI } from "./../HOCS/withReqToAPI";
 import NotFound from "./NotFound";
 import Error from "./../Error/Error";
 import PropTypes from "prop-types";
+import Paginator from "../Paginator/Paginator";
 
 const FilmGrid = (props) => {
 
@@ -17,11 +18,15 @@ const FilmGrid = (props) => {
     if (props.isFilmsShow) {
         if (props.filmsList.length === 0) return <NotFound />
         else return (
-            <>
-                <div className={ style.countFilms }> {props.filmsList.length} FILMS FOUND </div>
+            <>  
+                <div className={style.countFilms}>
+                    {props.filmsList.length} FILMS FOUND
+                </div>
+                <Paginator />
                 <div className={style.filmGrid}>
                     {props.filmsList.map(film => <FilmCard filmInfo={film} key={film.id} />)}
-                </div>
+                </div>                
+                <Paginator />
             </>
         )
     }
@@ -33,13 +38,15 @@ let mapStateToProps = (state) => ({
     filmsList: state.films.filmsList,
     sort: state.films.sort,
     isFilmsShow: state.films.isFilmsShow,
-    isErrorShow: state.films.isErrorShow
+    isErrorShow: state.films.isErrorShow,
+    countDeletedFilms: state.films.countDeletedFilms
 })
 
 let mapDispatchToProps = {
     changeFilmsList,
     getFilms,
-    changeSort
+    changeSort,
+    changeGenre
 }
 
 const FilmGridContainer = compose(

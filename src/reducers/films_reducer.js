@@ -24,6 +24,8 @@ const CHANGE_GENRE = "CHANGE_GENRE";
 
 const CHANGE_FILM_INFO_FOR_VIEW = "CHANGE_FILM_INFO_FOR_VIEW";
 
+const SET_COUNT_DELETED_FILMS = "SET_COUNT_DELETED_FILMS";
+
 export const NOT_SORTED = "-";
 export const RELEASE_DATA = "release_date";
 export const VOTE_AVERAGE = "vote_average";
@@ -49,9 +51,10 @@ const init_state = {
     sortList: [NOT_SORTED, RELEASE_DATA, VOTE_AVERAGE, BUDGET],
     sort: NOT_SORTED,
     filmsList: [],
-    offset: 1,
+    offset: 0,
     isFilmInfoShow: false,
-    filmInfoView: {} // for writing info about film
+    filmInfoView: {}, // for writing info about film
+    countDeletedFilms: 0
 }
 
 const films_reducer = (state = init_state, action) => {
@@ -100,6 +103,9 @@ const films_reducer = (state = init_state, action) => {
             break;
         case CHANGE_FILM_INFO_FOR_VIEW:
             stateCopy.filmInfoView = action.filmInfo;
+            break;
+        case SET_COUNT_DELETED_FILMS:
+            stateCopy.countDeletedFilms += 1;
             break;
         default:
             return stateCopy;
@@ -173,6 +179,10 @@ export let changeGenre = (genre) => ({
     genre
 })
 
+export let setCountDeletedFilms = () => ({
+    type: SET_COUNT_DELETED_FILMS
+})
+
 export let getFilms = (genre = ALL, sort = NOT_SORTED, search = "", offset = 1) => {
     return (dispatch) => {
         dispatch(hideError());
@@ -182,8 +192,8 @@ export let getFilms = (genre = ALL, sort = NOT_SORTED, search = "", offset = 1) 
         let params = {
             sortBy: sort === NOT_SORTED ? null : sort,
             filter: genre === ALL ? null : genre,
-            limit: 4,
-            offset
+            limit: 10,
+            offset: offset*10
         };
 
         if (search === "") {

@@ -12,6 +12,8 @@ import AddFilm from "./components/Forms/AddFilm/AddFilm";
 import EditFilm from "./components/Forms/AddFilm/EditFilm";
 import Footer from "./components/Footer/Footer";
 import FilmInfo from "./components/FilmInfo/FilmInfo";
+import SuccessAction from "./components/Modal/SuccessAction/SuccessAction";
+import ErrorAction from "./components/Modal/ErrorAction/ErrorAction";
 
 function App() {
   return (
@@ -21,7 +23,11 @@ function App() {
           {/* //////////////// MAIN BLOCK ///////////////*/}
           <SearchBlock />
           <Nav />
+          <Route path="/"  render={() => <MainContent />} exact/>
           <Route path="/genre/:genre"  render={() => <MainContent />} />
+          
+          <Loader />
+          {/* <Error /> */}
           {/* //////////////// FORMS ///////////////*/}
           <AddFilm />
           <EditFilm />
@@ -29,7 +35,8 @@ function App() {
 
           {/* //////////////// OTHER ///////////////*/}
           <ActionListForFilmCard />
-          <Loader />
+          <SuccessAction />
+          <ErrorAction />
 
           {/* <Nav />
           
@@ -37,12 +44,7 @@ function App() {
           <ActionListForFilmCard />
           <AddFilm />
           <EditFilm />
-          <SuccessAction />
-          <ErrorAction /> */}
-          {/* <Error /> */}
-          {/* <footer>
-            футер
-          </footer> */}
+           */}
           {/* //////////////// FOOTER ///////////////*/}
           <Footer />
         </BrowserRouter>
