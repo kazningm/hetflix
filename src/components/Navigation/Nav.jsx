@@ -7,24 +7,29 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { changeFilmsList } from "../../reducers/films_reducer";
 
+const useQuery = () => new URLSearchParams(window.location.search)
+
 const Nav = (props) => {
+
+    let query = useQuery();
+
     return (
         <nav>
             <ul className={style.headNav}>
                 <li>
-                    <NavLink to="/genre/All" activeClassName={ style.active }>ALL</NavLink>
+                    <NavLink to={"/genre/All?" + query.toString()} activeClassName={ style.active }>ALL</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/genre/Family" activeClassName={ style.active }>FAMILY</NavLink>
+                    <NavLink to={"/genre/Family?" + query.toString()} activeClassName={ style.active }>FAMILY</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/genre/Action" activeClassName={ style.active }>ACTION</NavLink>
+                    <NavLink to={"/genre/Action?" + query.toString()} activeClassName={ style.active }>ACTION</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/genre/Drama" activeClassName={ style.active }>DRAMA</NavLink>
+                    <NavLink to={"/genre/Drama?" + query.toString()} activeClassName={ style.active }>DRAMA</NavLink>
                 </li>
                 <li>
-                    <NavLink to="/genre/Crime" activeClassName={ style.active }>CRIME</NavLink>
+                    <NavLink to={"/genre/Crime?" + query.toString()} activeClassName={ style.active }>CRIME</NavLink>
                 </li>
                 <li style={{ flexGrow: 10 }}></li>
                 <li style={{ paddingRight: 0 }}>
@@ -36,12 +41,14 @@ const Nav = (props) => {
 }
 
 let mapStateToProps = (state) => ({
-    filmsList: state.films.filmsList
+    filmsList: state.films.filmsList,
+    offset: state.films.offset,
+    search_value: state.films.search_value
 })
 
 const NavContainer = compose(
     withRouter,
-    connect(null, { changeFilmsList })
+    connect(mapStateToProps, { changeFilmsList })
 )(Nav)
 
 export default NavContainer;

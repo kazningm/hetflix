@@ -13,9 +13,10 @@ const SortFilms = (props) => {
     let changeSort = (event) => {
         let sort = event.target.value;
         props.changeSort(sort);
+        query.set("sort", sort);
         if (sort !== "-") query.set("sort", sort);
         else query.delete("sort");
-        window.history.pushState(null, "", "?" + query.toString());
+        window.history.pushState(null, null, "?" + query.toString());
     }
     return (
         <>

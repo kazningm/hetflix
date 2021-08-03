@@ -1,27 +1,27 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router";
 import { NOT_SORTED, ALL } from "./../../reducers/films_reducer";
 
-const useQuery = () => {
-    return new URLSearchParams(window.location.search)
-}
+const useQuery = () => new URLSearchParams(window.location.search);
 
 export const withReqToAPI = (Component) => {
     const NewComponent = (props) => {
         
+        let countDeletedFilms = props.countDeletedFilms;
+
         let query = useQuery();
 
         let params = useParams();
-        const genre = params.genre || ALL; 
+        const genre = params.genre || ALL;
         const search = query.get("search") || "";
-        const sort = query.get("sort") || "-";
+        const sort = query.get("sort") || NOT_SORTED;
+        const offset = query.get("offset") || 1;
 
         // console.log(genre, search, sort)
 
-        const filmsList = useState(props.filmsList)[0];
         useEffect(() => {
-            props.getFilms(genre, sort, search)      
-        }, [filmsList, genre, sort, search])
+            props.getFilms(genre, sort, search, offset)      
+        }, [genre, search, sort, offset, countDeletedFilms])
 
         return (
             <Component {...props} />

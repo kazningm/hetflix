@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import style from "./SearchBlock.module.css";
 import logo from "./../../logo.png";
 import { NavLink } from "react-router-dom";
@@ -10,19 +10,22 @@ import { showAddForm } from "./../../reducers/forms_reducer";
 const useQuery = () => new URLSearchParams(window.location.search);
 
 const SearchBlock = (props) => {
-
-    const search_value = props.search_value;
     let query = useQuery();
 
+    const search_value = props.search_value 
+
     let changeSearchValue = (event) => {
-        props.changeSearchValue(event.target.value); 
+        let search = event.target.value;
+        props.changeSearchValue(search); 
+        if (search) query.set("search", search);
+        else query.delete("search");
+        window.history.pushState(null, null, "?" + query.toString())
     }
 
     let startToSearch = () => {
-        if (search_value) query.set("search", search_value);
-        else query.delete("search");
-        window.history.pushState("", null, "?" + query.toString())
-        props.changeSearchValue(search_value); 
+        // props.changeSearchValue(search_value); 
+        // query.set("search", search_value);
+        // window.history.pushState("", null, "?" + query.toString())
     }
 
     let startToSearchByEnter = (event) => {
@@ -48,10 +51,11 @@ const SearchBlock = (props) => {
                     <div className={style.text}>FIND YOU MOVIE</div>
                     <div className={style.inputDiv}>
                         <input className={style.customInput} type="text"
-                            value={props.search_value}
+                            value={search_value}
                             placeholder={props.placeholder}
                             onChange={changeSearchValue} 
-                            onKeyPress={ startToSearchByEnter } />
+                            // onKeyPress={ startToSearchByEnter } 
+                            />
                         <div className={style.searchMovieButton} onClick={ startToSearch }>SEARCH</div>
                     </div>
                 </div>
@@ -63,7 +67,8 @@ const SearchBlock = (props) => {
 let mapStateToProps = (state) => ({
     search_value: state.films.search_value,
     placeholder: state.films.placeholder,
-    sort: state.films.sort
+    sort: state.films.sort,
+    offset: state.films.offset
 })
 
 let mapDispatchToProps = {
