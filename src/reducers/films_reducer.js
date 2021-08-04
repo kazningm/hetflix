@@ -2,6 +2,7 @@ import _ from "lodash";
 import axios from "axios";
 
 const CHANGE_SEARCH_VALUE = "CHANGE_SEARCH_VALUE";
+const CHANGE_SEARCH = "CHANGE_SEARCH";
 
 const CHANGE_FILMS_LIST = "CHANGE_FILMS_LIST";
 const SHOW_LOADER = "SHOW_LOADER";
@@ -43,7 +44,8 @@ export const FANTASY = "Fantasy";
 
 
 const init_state = {
-    search_value: "",
+    search_value: "", // it will use for set input and address
+    search: "", // it will use for dependense for refresh data in filmgrid
     genres: [ACTION, CRIME, DOCUMENTARY, HORROR, COMEDY, FANTASY],
     genre: ALL,
     placeholder: "What do you want to watch?",
@@ -91,6 +93,9 @@ const films_reducer = (state = init_state, action) => {
             break;
         case CHANGE_SEARCH_VALUE:
             stateCopy.search_value = action.value;
+            break;
+        case CHANGE_SEARCH:
+            stateCopy.search = action.value;
             break;
         case SHOW_FILM_INFO:
             stateCopy.isFilmInfoShow = true;
@@ -163,6 +168,11 @@ export let changeSort = (sort) => ({
 
 export let changeSearchValue = (value) => ({
     type: CHANGE_SEARCH_VALUE,
+    value
+})
+
+export let changeSearch = (value) => ({
+    type: CHANGE_SEARCH,
     value
 })
 

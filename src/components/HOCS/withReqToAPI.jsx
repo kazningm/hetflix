@@ -15,7 +15,8 @@ export const withReqToAPI = (Component) => {
 
         let params = useParams();
         const genre = params.genre || ALL;
-        const search = query.get("search") || "";
+        // const search = query.get("search") || "";
+        const search = props.search;
         const sort = query.get("sort") || NOT_SORTED;
         const offset = query.get("offset") || 1;
 

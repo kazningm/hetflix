@@ -4,7 +4,7 @@ import logo from "./../../logo.png";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { changeSearchValue, changeFilmsList, getFilms } from "./../../reducers/films_reducer";
+import { changeSearchValue, changeSearch, changeFilmsList, getFilms } from "./../../reducers/films_reducer";
 import { showAddForm } from "./../../reducers/forms_reducer";
 
 const useQuery = () => new URLSearchParams(window.location.search);
@@ -12,7 +12,13 @@ const useQuery = () => new URLSearchParams(window.location.search);
 const SearchBlock = (props) => {
     let query = useQuery();
 
-    const search_value = props.search_value 
+    const search_value = props.search_value;
+    const search = props.search;  
+
+    useEffect(() => {
+        props.changeSearchValue(query.get("search")); 
+        props.changeSearch(query.get("search"));  
+    }, [search])
 
     let changeSearchValue = (event) => {
         let search = event.target.value;
@@ -23,7 +29,7 @@ const SearchBlock = (props) => {
     }
 
     let startToSearch = () => {
-        // props.changeSearchValue(search_value); 
+        props.changeSearch(search_value); 
         // query.set("search", search_value);
         // window.history.pushState("", null, "?" + query.toString())
     }
@@ -54,7 +60,7 @@ const SearchBlock = (props) => {
                             value={search_value}
                             placeholder={props.placeholder}
                             onChange={changeSearchValue} 
-                            // onKeyPress={ startToSearchByEnter } 
+                            onKeyPress={ startToSearchByEnter } 
                             />
                         <div className={style.searchMovieButton} onClick={ startToSearch }>SEARCH</div>
                     </div>
@@ -66,6 +72,7 @@ const SearchBlock = (props) => {
 
 let mapStateToProps = (state) => ({
     search_value: state.films.search_value,
+    search: state.films.search,
     placeholder: state.films.placeholder,
     sort: state.films.sort,
     offset: state.films.offset
@@ -75,7 +82,8 @@ let mapDispatchToProps = {
     changeSearchValue,
     changeFilmsList,
     showAddForm,
-    getFilms
+    getFilms,
+    changeSearch
 }
 
 const SearchBlockContainer = compose(

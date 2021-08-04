@@ -41,7 +41,8 @@ let mapStateToProps = (state) => ({
     isErrorShow: state.films.isErrorShow,
     countDeletedFilms: state.films.countDeletedFilms,
     countAddedFilms: state.films.countAddedFilms,
-    countEditedFilms: state.films.countEditedFilms
+    countEditedFilms: state.films.countEditedFilms,
+    search: state.films.search
 })
 
 let mapDispatchToProps = {
