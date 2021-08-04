@@ -221,7 +221,6 @@ export let getFilms = (genre = ALL, sort = NOT_SORTED, search = "", offset = 1) 
             params.searchBy = "title";
             params.search = search;
         }
-        console.log(params)
         axios.get("http://localhost:4000/movies", { params })
             .then(response => {
                 let films = response.data.data;

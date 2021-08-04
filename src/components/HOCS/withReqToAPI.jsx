@@ -22,8 +22,9 @@ export const withReqToAPI = (Component) => {
         // console.log(genre, search, sort)
 
         useEffect(() => {
-            props.getFilms(genre, sort, search, offset)      
-        }, [genre, search, sort, offset, countDeletedFilms])
+            props.changeGenre(genre);
+            props.getFilms(genre, sort, search, offset);
+        }, [genre, search, sort, offset, countDeletedFilms, countAddedFilms, countEditedFilms])
 
         return (
             <Component {...props} />
