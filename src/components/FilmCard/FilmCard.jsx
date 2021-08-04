@@ -34,7 +34,7 @@ const FilmCard = (props) => {
                 <div className={ style.threeDots } onClick={ openActionList } >&#8942;</div>
             </div>
             <div className={ style.descDiv }>
-                <div className={ style.filmName }>{ name }</div>
+                <div className={ style.filmName } title={ name }>{ name.length > 20 ? (name.substr(0, 20) + "...") : name }</div>
                 <div className={ style.filmYear }>{ date }</div>
             </div>
             <div className={ style.filmGenre }>{ genres }</div>            
